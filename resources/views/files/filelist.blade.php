@@ -22,9 +22,15 @@
             </tr>
           </thead>
           <tbody>
+
+            @php
+            $counter = 1;
+            @endphp
+
             @foreach($files as $file)
+            {{-- <p><a href="{{ route('upload.show', ['id' => $file->id]) }}">{{ $file->name }}</a></p> --}}
               <tr>
-                <td width="3%">{{ $file->id }}</td>
+                <td width="3%">{{ $counter++ }}</td>
                 <td>{{ $file->name }}</td>
                 <td width="10%">{{ $file->size }}</td>
                 <td width="10%">{{ $file->type }}</td>
@@ -34,54 +40,56 @@
             
           </tbody>
         </table>
-        {{-- <a href="/files/extractedfile" class="btn btn-primary btn-right mb-3">Proceed</a> --}}
-        {{-- <a href="{{ route('files.create') }}" class="btn btn-primary float-right mb-3">Add file/text</a> --}}
+    </div>
+  
+     <div class="iframe-container">
+      <iframe src="{{ asset('public/files/' . $file->name) }}" width="100%" height="600" frameborder="0"></iframe>
+     </div>
+    {{-- <div class="iframe-container">
+        <iframe src= Storgae::url(public/file/pre_stress_35891647.docx) width="100%" height="600" frameborder="0"></iframe>
+    </div> --}}
+    {{-- <iframe src="{{ route('file.show', ['id' => $file->id]) }}" name="iframe_a" height="400px" width="400px" title="Iframe Example"></iframe> --}}
+
+    <p><a href="https://www.w3schools.com" target="iframe_a">Preview of documents</a></p>
     </div>
 
+    {{-- <style>
+        .iframe-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 aspect ratio (height: 9/16 = 0.5625) */
+        }
+
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style> --}}
+
     <div class="bg-light p-5 rounded">
-      <form id="dataForm">
-        <form action="{{ route('api.getapi') }}" method="post">
+      <form id="dataForm" action="{{ route('api.getapi') }}" method="post">
           @csrf 
           <h5>Select data to be extracted</h5>
           <input type="checkbox" name="data[]" value="date"> Date <br/>
-          <input type="checkbox" name="data[]" value="BMI"> BMI <br/>
+          <input type="checkbox" name="data[]" value="bmi"> BMI <br/>
           <input type="checkbox" name="data[]" value="bp"> Blood Pressure <br/>
   
-          {{-- <button type="submit" class="btn btn-primary float-right mb-3">Extract</button> --}}
-          <a href="{{ route('api.getapi') }}" class="btn btn-primary btn-right mb-3">Extract</a>
+          {{-- <button type="submit" id= "extract" class="btn btn-primary float-right mb-3">Extract</button> --}}
+          <button type="button" onclick="submitForm()">Extract</button>
+          {{-- <a href="{{ route('api.getapi') }}" class="btn btn-primary btn-right mb-3">Extract</a> --}}
       </form>
     </div>
 
-    {{-- <script>
-      function extractData() {
-          console.log('extractData function called');
-          // Get selected checkboxes
-          const checkboxes = document.querySelectorAll('input[name="data[]"]:checked');
-          const selectedData = Array.from(checkboxes).map(checkbox => checkbox.value);
-  
-          // Prepare data for submission
-          const formData = new FormData();
-          formData.append('_token', document.querySelector('input[name="_token"]').value);
-          formData.append('selectedData', JSON.stringify(selectedData));
-  
-          // Send a POST request to the Laravel route
-          fetch('{{ route('files.extract') }}', {
-              method: 'POST',
-              body: formData
-          })
-          .then(response => response.json())
-          .then(data => {
-              // Handle the response data (e.g., update the UI)
-              console.log(data);
-          })
-          .catch(error => {
-              console.error('Error:', error);
-          });
-
-          return redirect()->route('files.index')->withSuccess(__('File added successfully.'));
-      }
+    <script>
+      function submitForm() {
+        // Submit the form using JavaScript
+        document.getElementById('dataForm').submit();
+    }
   </script>
-   --}}
 
        
    

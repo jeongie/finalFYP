@@ -22,9 +22,14 @@
             </tr>
           </thead>
           <tbody>
+
+            @php
+            $counter = 1;
+            @endphp
+
             @foreach($files as $file)
               <tr>
-                <td width="3%">{{ $file->id }}</td>
+                <td width="3%">{{ $counter++ }}</td>
                 <td>{{ $file->name }}</td>
                 <td width="10%">{{ $file->size }}</td>
                 <td width="10%">{{ $file->type }}</td>

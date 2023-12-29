@@ -12,9 +12,18 @@ class Extraction extends Model
 
     protected $fillable = [
         'PID',
-        'Date',
-        'BMI',
-        'Resting_BP',
-        'Peak_BP',
+        'DM','dyslipi',
+        'IHD',
+        'cabg',
+        'hb1ac',
+        'ef','Rest HR',
+        'hypertension',
+        'cholestrol',
+        'smoking',
+        'alcohol',
+        'bmi',
+        'Rest BP',
+        'Peak BP',
+        'METS',
     ];
 }

@@ -7,11 +7,11 @@
 @section('content')
 <a href="/dashboard" class="custom-btn"><i class="fa fa-home"></i></a>
 <a href="/files" class="custom-btn"><i class="fa fa-arrow-left"></i></a>
-    <div class="bg-light p-5 rounded">
+    <div class="bg-light p-5 rounded" >
         <h1>Extracted Medical Data</h1>
         @include('layouts.partials.messages')
         
-        {{-- @if(isset($apidata))
+        {{-- @if(isset($apidata))     FIRST FIRST DISPLAY USER
         <table class="w3-table w3-bordered w3-striped"> 
             <thead>
               <tr>
@@ -29,29 +29,50 @@
                 @endforeach
         </table> --}}
 
+        {{-- FOR EXTRACTED DATA --}}
         @if(isset($apidata))
-        <table class="w3-table w3-bordered w3-striped">
-            <thead>
-                <tr>
-                    <th>PID</th>
-                    <th>Date</th>
-                    <th>BMI</th>
-                    <th>Blood Pressure - Resting BP</th>
-                    <th>Blood Pressure - Peak BP</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($apidata as $item)
+        <div style="overflow-x:auto;">
+            <table class="w3-table w3-bordered w3-striped" style="font-size: 14px;">
+                <thead>
                     <tr>
-                        <td>{{ $item['PID'] }}</td>
-                        <td>{{ $item['Date'] }}</td>
-                        <td>{{ $item['BMI'] }}</td>
-                        <td>{{ $item['Blood Pressure - Resting BP'] }}</td>
-                        <td>{{ $item['Blood Pressure - Peak BP'] }}</td>
+                        <th>PID</th>
+                        <th>Date of CABG</th>
+                        <th>HbA1c</th>
+                        <th>Resting Heart Rate</th>
+                        <th>Hypertension</th>
+                        <th>Cholestrol</th>
+                        <th>Smoking</th>
+                        <th>Alcohol</th>
+                        <th>BMI</th>
+                        <th>Resting Blood Pressure</th>
+                        <th>Peak Blood Pressure</th>
+                        <th>Metabolic Equivalents</th>
+
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($apidata as $item)
+                        <tr>
+                            <td>{{ $item['PID'] }}</td>
+                            <td>{{ $item['cabg'] }}</td>
+                            <td>{{ $item['hb1ac'] }}</td>
+                            <td>{{ $item['Rest HR'] }}</td>
+                            <td>{{ $item['hypertension'] }}</td>
+                            <td>{{ $item['cholestrol'] }}</td>
+                            <td>{{ $item['smoking'] }}</td>
+                            <td>{{ $item['alcohol'] }}</td> 
+                            <td>{{ $item['bmi'] }}</td>
+                            <td>{{ $item['Rest BP'] }}</td>
+                            <td>{{ $item['Peak BP'] }}</td>
+                            <td>{{ $item['METS'] }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        {{-- @if(isset($apidata) && is_string($apidata))
+            <p>{{ $apidata }}</p> --}}
 
         <div class="card-body">
             {{-- <a href="{{ route('export.excel') }}" class="btn btn-primary float-right mb-3">Export Excel</a> --}}
@@ -64,6 +85,7 @@
         
     </div>
 
+    
 
 
 

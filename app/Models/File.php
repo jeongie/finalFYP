@@ -12,12 +12,15 @@ class File extends Model
     protected $table = 'files';
 
     protected $fillable = [
-        'id',
+        'user_id',
         'name',
         'type',
         'size',
+        'path',
 
     ];
+
+    use HasFactory;
 
     
 }
