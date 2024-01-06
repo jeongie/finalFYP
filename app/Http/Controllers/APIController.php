@@ -60,48 +60,35 @@ public function storeDataInDatabase(Request $request)
     try {
         $sessionId = $request->query('sessionId');
         $apidata = session()->get('apidata');
-        dd($apidata);
-        dd($sessionId);
-        echo($sessionId);
+        // dd($apidata);
+        // dd($sessionId);
+        // echo($sessionId);
         \Log::info('$sessionId'. $sessionId);
         // need to create a new API? Or can pass the variable from prev page to this page?
-        $response = Http::get('http://127.0.0.1:5000/',); // Update the URL with your Flask API endpoint
         // dd($response->json());
         // TODO: Check if this is a successful request
         // \Log::info($response->json());
 
         // echo 'error1';
 
-        if ($response->successful()) {
-            $data = $response->json();
-            // dd($response);
+        foreach ($apidata as $item) {
+            Extraction::create([
+                'PID' => $item['PID'],
+                'cabg' => $item['cabg'],
+                'hb1ac' => $item['hb1ac'],
+                'Rest HR' => $item['Rest HR'],
+                'hypertension' => $item['hypertension'],
+                'cholestrol' => $item['cholestrol'],
+                'smoking' => $item['smoking'],
+                'alcohol' => $item['alcohol'],
+                'bmi' => $item['bmi'],
+                'Rest BP' => $item['Rest BP'],
+                'Peak BP' => $item['Peak BP'],
+                'METS' => $item['METS'],
+            ]);
 
-            foreach ($data as $item) {
-                Extraction::create([
-                    'PID' => $item['PID'],
-                    // 'cabg' => $item['cabg'],
-                    // 'hb1ac' => $item['hb1ac'],
-                    // 'Rest HR' => $item['Rest HR'],
-                    // 'hypertension' => $item['hypertension'],
-                    // 'cholestrol' => $item['cholestrol'],
-                    // 'smoking' => $item['smoking'],
-                    // 'alcohol' => $item['alcohol'],
-                    'bmi' => $item['bmi'],
-                    'Rest BP' => $item['Rest BP'],
-                    'Peak BP' => $item['Peak BP'],
-                    // 'METS' => $item['METS'],
-                ]);
-
-            }
-            return redirect()->route('export')->withSuccess(__('File added successfully.'));
-        } else {
-            // Log the API response error message
-            \Log::error('API Error: ' . $response->status());
-            
-            // echo 'error2';
-            // Display a generic error message
-            return view('api.database_error', ['error' => 'Failed to connect to the API.']);
         }
+        return redirect()->route('export')->withSuccess(__('File added successfully.'));
     } catch (\Exception $e) {
         // Log the exception message
         \Log::error('Exception: ' . $e->getMessage());
