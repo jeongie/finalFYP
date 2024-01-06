@@ -26,27 +26,25 @@ class FilesController extends Controller
 
     }
 
-    // public function filelist()
-    // {
-    //     $userId = auth()->id();
-    //     $files = File::where('user_id', $userId)->get();
-    //     $filePath= File::url($files->path)->get();
-
-    //     return view('files.filelist', ['files' => $files],['filePath' => $filePath]);
-
-    // }
-
     public function filelist()
     {
+        
+        // dd(Storage::disk('public')->path('/files/student entry.docx'));
+        // Storage::disk('public')->path('/file/filename.docx'));
+
         $userId = auth()->id();
         $files = File::where('user_id', $userId)->get();
         $filePath = [];
+        // dd($files);
 
-        // Loop through each file to get its path
+        //Loop through each file to get its path
         foreach ($files as $file) {
+            // Generate the URL for the file using Laravel's Storage facade
             $filePath[$file->id] = Storage::url($file->path);
         }
-        
+        // dd($filePath);
+
+        // Update the path property of each file with the generated URL
         foreach ($files as $file) {
             $file->path = $filePath[$file->id];
         }
@@ -76,7 +74,8 @@ class FilesController extends Controller
         $size = $uploadedFile->getSize();
 
         // Move the uploaded file to the public/file directory
-        $uploadedFile->move(public_path('file'), $fileName);
+        // $uploadedFile->move(public_path('file'), $fileName);
+        $filePath= Storage::disk('public')->putFileAs('files', $uploadedFile, $fileName);
 
         // Create a new File record in the database
         File::create([
@@ -84,7 +83,7 @@ class FilesController extends Controller
             'name' => $fileName,
             'type' => $type,
             'size' => $size,
-            'path' => 'files/' . $fileName, // Adjust the path as needed
+            'path' => $filePath// Adjust the path as needed
         ]);
 
         return redirect()->route('files.index')->withSuccess(__('File added successfully.'));
@@ -164,16 +163,6 @@ class FilesController extends Controller
 
             return redirect()->back()->with('success', 'Text stored successfully.');
         }
-        // try {
-        //     $response = $client->request('POST', 'http://python-backend-api-url', [ //newly added
-        //         'body' => [
-        //             'file' => fopen($path, 'r')
-        //         ]
-        //     ]);
-        // } catch (ClientExceptionInterface $e) {
-            // Handle any exceptions or error responses from the API }
-                
-
     }
 
        
@@ -184,45 +173,45 @@ class FilesController extends Controller
         return redirect()->back()->with('success', 'File deleted successfully');
     }
 
-    public function show($id)
-    {
-        $file = File::find($id);
+    // public function show($id)
+    // {
+    //     $file = File::find($id);
 
-        if (!$file) {
-            abort(404);
-        }
+    //     if (!$file) {
+    //         abort(404);
+    //     }
 
-        $path = public_path($file->path . '/file' . $file->filename);
+    //     $path = public_path($file->path . '/file' . $file->filename);
 
-        if (!File::exists($path)) {
-            abort(404);
-        }
+    //     if (!File::exists($path)) {
+    //         abort(404);
+    //     }
 
-        $file = File::get($path);
-        $type = File::mimeType($path);
+    //     $file = File::get($path);
+    //     $type = File::mimeType($path);
 
-        $response = Response::make($file, 200);
-        $response->header("Content-Type", $type);
+    //     $response = Response::make($file, 200);
+    //     $response->header("Content-Type", $type);
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
-    public function showFile($id)
-    {
-        // Fetch the file from the database
-        $file = File::findOrFail($id);
+    // public function showFile($id)
+    // {
+    //     // Fetch the file from the database
+    //     $file = File::findOrFail($id);
 
-        // Check if the file exists
-        if ($file) {
-            // Access the file path
-            $filePath = Storage::url($file->path);
+    //     // Check if the file exists
+    //     if ($file) {
+    //         // Access the file path
+    //         $filePath = Storage::url($file->path);
 
-            // Now you can use $filePath to do whatever you need (e.g., display in an iframe)
-            return view('files.filelist', ['filePath' => $filePath]);
-        } else {
-            // Handle the case where the file with the given ID doesn't exist
-            return abort(404);
-        }
-    }
+    //         // Now you can use $filePath to do whatever you need (e.g., display in an iframe)
+    //         return view('files.filelist', ['filePath' => $filePath]);
+    //     } else {
+    //         // Handle the case where the file with the given ID doesn't exist
+    //         return abort(404);
+    //     }
+    // }
  }
  

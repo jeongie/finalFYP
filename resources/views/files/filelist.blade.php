@@ -41,14 +41,22 @@
           </tbody>
         </table>
     </div>
+
   
-     <div class="iframe-container">
-      <iframe src="{{ asset('public/files/' . $file->name) }}" width="100%" height="600" frameborder="0"></iframe>
-     </div>
+    <div class="iframe-container">
+      @foreach ($files as $file)
+      {{-- <iframe src="{{Storage::disk('public')->url($file->path)}}" width="800" height="600"></iframe> --}}
+      {{-- {{Storage::disk('public')->url($file->path)}} --}}
+      <iframe src="{{ asset('files/pre_stress_35891647e.docx') }}" width="100%" height="600" frameborder="0"></iframe>
+      @endforeach
+    
+      {{-- <iframe src="{{ asset('file/pre_stress_35891647e.docx') }}" width="100%" height="600" frameborder="0"></iframe> --}}
+      {{-- <iframe src="https://docs.google.com/gview?url=C:/Users/hui_c/Downloads/report/pre_stress_35891647.docx&embedded=true"></iframe> --}}
     {{-- <div class="iframe-container">
         <iframe src= Storgae::url(public/file/pre_stress_35891647.docx) width="100%" height="600" frameborder="0"></iframe>
     </div> --}}
-    {{-- <iframe src="{{ route('file.show', ['id' => $file->id]) }}" name="iframe_a" height="400px" width="400px" title="Iframe Example"></iframe> --}}
+    {{-- <iframe src="https://docs.google.com/gview?url=C:/Users/hui_c/Downloads/report/pre_stress_35891647.docx&embedded=true"></iframe>
+    <iframe src="{{ asset('public/files/F0326941-1756-4366-91C4-ABFBB0E77C42.pdf') }}" style="width:100%; height:600px;" frameborder="0"></iframe> --}}
 
     <p><a href="https://www.w3schools.com" target="iframe_a">Preview of documents</a></p>
     </div>
@@ -74,13 +82,19 @@
       <form id="dataForm" action="{{ route('api.getapi') }}" method="post">
           @csrf 
           <h5>Select data to be extracted</h5>
-          <input type="checkbox" name="data[]" value="date"> Date <br/>
+          <input type="checkbox" name="data[]" value="cabg"> CABG <br/>
+          <input type="checkbox" name="data[]" value="hb1ac"> Hb1ac <br/>
+          <input type="checkbox" name="data[]" value="Rest HR"> Resting Heart Rate <br/>
+          <input type="checkbox" name="data[]" value="hypertension"> Hypertension <br/>
+          <input type="checkbox" name="data[]" value="cholestrol"> Cholestrol <br/>
+          <input type="checkbox" name="data[]" value="smoking"> Smoking <br/>
+          <input type="checkbox" name="data[]" value="alcohol"> Alcohol <br/>
           <input type="checkbox" name="data[]" value="bmi"> BMI <br/>
-          <input type="checkbox" name="data[]" value="bp"> Blood Pressure <br/>
+          <input type="checkbox" name="data[]" value="Rest BP"> Resting Blood Pressure <br/>
+          <input type="checkbox" name="data[]" value="Peak BP"> Peak Blood Pressure <br/>
+          <input type="checkbox" name="data[]" value="METS"> Metabolic Equivalents <br/>
   
-          {{-- <button type="submit" id= "extract" class="btn btn-primary float-right mb-3">Extract</button> --}}
-          <button type="button" onclick="submitForm()">Extract</button>
-          {{-- <a href="{{ route('api.getapi') }}" class="btn btn-primary btn-right mb-3">Extract</a> --}}
+          <button type="button" class="btn btn-primary float-right mb-3" onclick="submitForm()">Extract</button>
       </form>
     </div>
 

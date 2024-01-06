@@ -14,10 +14,17 @@ return new class extends Migration
         Schema::create('extraction', function (Blueprint $table) {
             $table->id();
             $table->string('PID');
-            $table->string('Date');
-            $table->decimal('BMI', 8, 2);
-            $table->string('Resting_BP');
-            $table->string('Peak_BP');
+            $table->string('cabg')->nullable();
+            $table->string('hb1ac')->nullable();
+            $table->string('Rest HR')->nullable();
+            $table->string('hypertension')->nullable();
+            $table->string('cholestrol')->nullable();
+            $table->string('smoking')->nullable();
+            $table->string('alcohol')->nullable();
+            $table->decimal('bmi', 8, 2)->nullable();
+            $table->string('Rest BP')->nullable();
+            $table->string('Peak BP')->nullable();
+            $table->string('METS')->nullable();
             $table->timestamps();
         });
     }

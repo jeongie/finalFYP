@@ -11,24 +11,6 @@
         <h1>Extracted Medical Data</h1>
         @include('layouts.partials.messages')
         
-        {{-- @if(isset($apidata))     FIRST FIRST DISPLAY USER
-        <table class="w3-table w3-bordered w3-striped"> 
-            <thead>
-              <tr>
-                <th scope="col">Date</th>
-                <th scope="col">BMI</th>
-                <th scope="col">Blood Pressure</th>
-              </tr>
-            </thead>
-                @foreach ($apidata['users'] as $user)
-                    <tr>
-                        <td>{{ $user['id'] }}</td>
-                        <td>{{ $user['name'] }}</td>
-                        <td>{{ $user['email'] }}</td>
-                    </tr>
-                @endforeach
-        </table> --}}
-
         {{-- FOR EXTRACTED DATA --}}
         @if(isset($apidata))
         <div style="overflow-x:auto;">
@@ -36,17 +18,39 @@
                 <thead>
                     <tr>
                         <th>PID</th>
-                        <th>Date of CABG</th>
-                        <th>HbA1c</th>
-                        <th>Resting Heart Rate</th>
-                        <th>Hypertension</th>
-                        <th>Cholestrol</th>
-                        <th>Smoking</th>
-                        <th>Alcohol</th>
-                        <th>BMI</th>
-                        <th>Resting Blood Pressure</th>
-                        <th>Peak Blood Pressure</th>
-                        <th>Metabolic Equivalents</th>
+                        @if(in_array('cabg', $selectedData))
+                            <th>Date of CABG</th>
+                        @endif
+                        @if(in_array('hb1ac', $selectedData))
+                            <th>HbA1c 
+                        @endif
+                        @if(in_array('Rest HR', $selectedData))
+                            <th>Resting Heart Rate
+                        @endif
+                        @if(in_array('hypertension', $selectedData))
+                            <th>Hypertension
+                        @endif
+                        @if(in_array('cholestrol', $selectedData))
+                            <th>Cholestrol
+                        @endif
+                        @if(in_array('smoking', $selectedData))
+                            <th>Smoking
+                        @endif
+                        @if(in_array('alcohol', $selectedData))
+                            <th>Alcohol
+                        @endif
+                        @if(in_array('bmi', $selectedData))
+                            <th>BMI</th>
+                        @endif
+                        @if(in_array('Rest BP', $selectedData))
+                            <th>Resting BP
+                        @endif
+                        @if(in_array('Peak BP', $selectedData))
+                            <th>Peak BP 
+                        @endif
+                        @if(in_array('METS', $selectedData))
+                            <th>Metabolic Equivalents
+                        @endif
 
                     </tr>
                 </thead>
@@ -54,30 +58,63 @@
                     @foreach($apidata as $item)
                         <tr>
                             <td>{{ $item['PID'] }}</td>
-                            <td>{{ $item['cabg'] }}</td>
-                            <td>{{ $item['hb1ac'] }}</td>
-                            <td>{{ $item['Rest HR'] }}</td>
-                            <td>{{ $item['hypertension'] }}</td>
-                            <td>{{ $item['cholestrol'] }}</td>
-                            <td>{{ $item['smoking'] }}</td>
-                            <td>{{ $item['alcohol'] }}</td> 
-                            <td>{{ $item['bmi'] }}</td>
-                            <td>{{ $item['Rest BP'] }}</td>
-                            <td>{{ $item['Peak BP'] }}</td>
-                            <td>{{ $item['METS'] }}</td>
-                        </tr>
+
+                            @if(in_array('cabg', $selectedData))
+                                <td>{{ $item['cabg'] }}</td>
+                            @endif
+                            @if(in_array('hb1ac', $selectedData))
+                                <td>{{ $item['hb1ac'] }}</td>
+                            @endif
+                            @if(in_array('Rest HR', $selectedData))
+                                <td>{{ $item['Rest HR'] }}</td>
+                            @endif
+                            @if(in_array('hypertension', $selectedData))
+                                <td>{{ $item['hypertension'] }}</td>
+                            @endif
+                            @if(in_array('cholestrol', $selectedData))
+                                <td>{{ $item['cholestrol'] }}</td>
+                            @endif
+                            @if(in_array('smoking', $selectedData))
+                                <td>{{ $item['smoking'] }}</td>
+                            @endif
+                            @if(in_array('alcohol', $selectedData))
+                                <td>{{ $item['alcohol'] }}</td>
+                            @endif
+                            @if(in_array('bmi', $selectedData))
+                                <td>{{ $item['bmi'] }}</td>
+                            @endif
+                            @if(in_array('Rest BP', $selectedData))
+                                <td>{{ $item['Rest BP'] }}</td>
+                            @endif
+                            @if(in_array('Peak BP', $selectedData))
+                                <td>{{ $item['Peak BP'] }}</td>
+                            @endif
+                            @if(in_array('METS', $selectedData))
+                                <td>{{ $item['METS'] }}</td>
+                            @endif
                     @endforeach
                 </tbody>
             </table>
         </div>
 
-        {{-- @if(isset($apidata) && is_string($apidata))
-            <p>{{ $apidata }}</p> --}}
-
         <div class="card-body">
-            {{-- <a href="{{ route('export.excel') }}" class="btn btn-primary float-right mb-3">Export Excel</a> --}}
-            <a href="{{ route('store.database') }}" class="btn btn-primary btn-right mb-3">Data extracted is correct!</a>
+            {{-- <form id="dataForm" action="{{ route('store.database') }}" method="post"> --}}
+            {{-- <a href="{{ route('export.excel') }}" class="btn btn-primary float-right mb-3">Export Excel</a>  --}}
+            <a href="{{ route('store.database')}}" class="btn btn-primary btn-right mb-3">Data extracted is correct!</a>
+            {{-- @foreach ($selectedData as $storeData)
+                <input type="hidden" name="selected_data[]" value="{{htmlentities(json_encode($apidata))}}"> 
+            @endforeach
+            
+            <button type="button" class="btn btn-primary float-right mb-3" onclick="submitForm()">Store in Database</button>
+            </form> --}}
         </div>
+
+        {{-- <script>
+            function submitForm() {
+              // Submit the form using JavaScript
+              document.getElementById('dataForm').submit();
+          }
+        </script> --}}
 
         @else
         <p>No data received from the API.</p>
