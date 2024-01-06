@@ -46,6 +46,7 @@ class APIController extends Controller
 
             // Get the response from the Python server
             $responseData = $response->json();
+           
 
             session(['apidata' => $responseData]);
         // Handle the response as needed
@@ -70,7 +71,7 @@ public function storeDataInDatabase(Request $request)
 
         foreach ($apidata as $item) {
             Extraction::create([
-                'PID' => $item['PID'] ?? null,
+                'PID' => $item['PID'],
                 'cabg' => $item['cabg'] ?? null,
                 'hb1ac' => $item['hb1ac'] ?? null,
                 'Rest HR' => $item['Rest HR'] ?? null,

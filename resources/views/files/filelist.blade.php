@@ -82,17 +82,17 @@
       <form id="dataForm" action="{{ route('api.getapi') }}" method="post">
           @csrf 
           <h5>Select data to be extracted</h5>
-          <input type="checkbox" checked name="data[]" value="cabg"> CABG <br/>
-          <input type="checkbox" checked name="data[]" value="hb1ac"> Hb1ac <br/>
-          <input type="checkbox" checked name="data[]" value="Rest HR"> Resting Heart Rate <br/>
-          <input type="checkbox" checked name="data[]" value="hypertension"> Hypertension <br/>
-          <input type="checkbox" checked name="data[]" value="cholestrol"> Cholestrol <br/>
-          <input type="checkbox" checked name="data[]" value="smoking"> Smoking <br/>
-          <input type="checkbox" checked name="data[]" value="alcohol"> Alcohol <br/>
-          <input type="checkbox" checked name="data[]" value="bmi"> BMI <br/>
-          <input type="checkbox" checked name="data[]" value="Rest BP"> Resting Blood Pressure <br/>
-          <input type="checkbox" checked name="data[]" value="Peak BP"> Peak Blood Pressure <br/>
-          <input type="checkbox" checked name="data[]" value="METS"> Metabolic Equivalents <br/>
+          <input type="checkbox" name="data[]" value="cabg"> CABG <br/>
+          <input type="checkbox" name="data[]" value="hb1ac"> Hb1ac <br/>
+          <input type="checkbox" name="data[]" value="Rest HR"> Resting Heart Rate <br/>
+          <input type="checkbox" name="data[]" value="hypertension"> Hypertension <br/>
+          <input type="checkbox" name="data[]" value="cholestrol"> Cholestrol <br/>
+          <input type="checkbox" name="data[]" value="smoking"> Smoking <br/>
+          <input type="checkbox" name="data[]" value="alcohol"> Alcohol <br/>
+          <input type="checkbox" name="data[]" value="bmi"> BMI <br/>
+          <input type="checkbox" name="data[]" value="Rest BP"> Resting Blood Pressure <br/>
+          <input type="checkbox" name="data[]" value="Peak BP"> Peak Blood Pressure <br/>
+          <input type="checkbox" name="data[]" value="METS"> Metabolic Equivalents <br/>
   
           <button type="button" class="btn btn-primary float-right mb-3" onclick="submitForm()">Extract</button>
       </form>
