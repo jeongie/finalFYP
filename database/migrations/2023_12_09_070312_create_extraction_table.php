@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('extraction', function (Blueprint $table) {
             $table->id();
-            // $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('PID');
             $table->string('cabg')->nullable();
             $table->string('hb1ac')->nullable();

@@ -73,6 +73,7 @@ public function storeDataInDatabase(Request $request)
 
         foreach ($apidata as $item) {
             Extraction::create([
+                'user_id' => auth()->id(),
                 'PID' => $item['PID'],
                 'cabg' => $item['cabg'] ?? null,
                 'hb1ac' => $item['hb1ac'] ?? null,

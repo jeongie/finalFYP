@@ -11,7 +11,7 @@ class Extraction extends Model
     protected $table = 'extraction';
 
     protected $fillable = [
-        'PID',
+        'user_id','PID',
         'DM','dyslipi',
         'IHD',
         'cabg',
