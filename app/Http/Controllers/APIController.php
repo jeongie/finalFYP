@@ -46,40 +46,31 @@ class APIController extends Controller
             // Get the response from the Python server
             $responseData = $response->json();
 
+            session(['apidata' => $responseData]);
         // Handle the response as needed
         return view('api.extract', ['apidata' => $responseData, 'selectedData' => $selectedData]);
     } catch (\Exception $e) {
         return view('api.api_error', ['error' => $e->getMessage()]);
     }
 }
-// class APIController extends Controller
-// {
-//     public function getapi()
-//     {
-//         // Fetch data from the API
-//         $client= new Client();
-//         $apiUrl="http://127.0.0.1:5000";
 
-//         try {
-//             // Make a GET request to the OpenWeather API
-//             $response = $client->get($apiUrl);
-
-//             // Get the response body as an array
-//             $data = json_decode($response->getBody(), true);
-
-//             // Handle the retrieved weather data as needed (e.g., pass it to a view)
-//             return view('api.extract', ['apidata' => $data]);
-//         } catch (\Exception $e) {
-//             // Handle any errors that occur during the API request
-//             return view('api.api_error', ['error' => $e->getMessage()]);
-//         }
-//     }
-
+// Save the data inputted by the user to the database
 public function storeDataInDatabase(Request $request)
 {
     try {
-        $response = Http::get('http://127.0.0.1:5000/'); // Update the URL with your Flask API endpoint
+        $sessionId = $request->query('sessionId');
+        $apidata = session()->get('apidata');
+        dd($apidata);
+        dd($sessionId);
+        echo($sessionId);
+        \Log::info('$sessionId'. $sessionId);
+        // need to create a new API? Or can pass the variable from prev page to this page?
+        $response = Http::get('http://127.0.0.1:5000/',); // Update the URL with your Flask API endpoint
         // dd($response->json());
+        // TODO: Check if this is a successful request
+        // \Log::info($response->json());
+
+        // echo 'error1';
 
         if ($response->successful()) {
             $data = $response->json();
@@ -88,17 +79,17 @@ public function storeDataInDatabase(Request $request)
             foreach ($data as $item) {
                 Extraction::create([
                     'PID' => $item['PID'],
-                    'cabg' => $item['cabg'],
-                    'hb1ac' => $item['hb1ac'],
-                    'Rest HR' => $item['Rest HR'],
-                    'hypertension' => $item['hypertension'],
-                    'cholestrol' => $item['cholestrol'],
-                    'smoking' => $item['smoking'],
-                    'alcohol' => $item['alcohol'],
+                    // 'cabg' => $item['cabg'],
+                    // 'hb1ac' => $item['hb1ac'],
+                    // 'Rest HR' => $item['Rest HR'],
+                    // 'hypertension' => $item['hypertension'],
+                    // 'cholestrol' => $item['cholestrol'],
+                    // 'smoking' => $item['smoking'],
+                    // 'alcohol' => $item['alcohol'],
                     'bmi' => $item['bmi'],
                     'Rest BP' => $item['Rest BP'],
                     'Peak BP' => $item['Peak BP'],
-                    'METS' => $item['METS'],
+                    // 'METS' => $item['METS'],
                 ]);
 
             }
@@ -107,6 +98,7 @@ public function storeDataInDatabase(Request $request)
             // Log the API response error message
             \Log::error('API Error: ' . $response->status());
             
+            // echo 'error2';
             // Display a generic error message
             return view('api.database_error', ['error' => 'Failed to connect to the API.']);
         }

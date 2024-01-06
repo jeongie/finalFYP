@@ -13,7 +13,7 @@
     <title>Database Error</title>
 </head>
 <body>
-    <h1>An error occurred while connecting to database</h1>
+    <h1>An error occurred while connecting to database page database_error.blade</h1>
     <p>{{ $error }}</p>
 </body>
 </html>

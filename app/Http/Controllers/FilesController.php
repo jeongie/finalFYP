@@ -90,67 +90,6 @@ class FilesController extends Controller
     }
 }
 
-    // public function store(StoreFileRequest $request)
-    //*** ORIGINAL WORKING */
-    // {
-    // // Validate file
-    // $request->validate([
-    //     'file' => 'required|mimes:doc,docx,pdf|max:10240', // Adjust the max file size if needed
-    // ]);
-
-    // // Continue with file upload logic if validation passes
-    // if ($request->hasFile('file')) {
-    //     // File upload logic...
-
-    //     // $uploadedFile = $request->file;
-    //     // $fileName = $uploadedFile->getClientOriginalExtension();
-    //     $fileName = $request->file->getClientOriginalName();
-    //     $type = $request->file->getClientMimeType();
-    //     $size = $request->file->getSize();
-    //     $request->file->move(public_path('file'), $fileName);
-
-    //     File::create([
-    //         'user_id' => auth()->id(),
-    //         'name' => $fileName,
-    //         'type' => $type,
-    //         'size' => $size,
-    //     ]);
-
-    //     return redirect()->route('files.index')->withSuccess(__('File added successfully.'));
-    // }
-    // }
-
-//     public function store(StoreFileRequest $request)
-//     //** TRYING this method to retrieve from database **
-// {
-//     // Validate file
-//     $request->validate([
-//         'file' => 'required|mimes:doc,docx,pdf|max:10240', // Adjust the max file size if needed
-//     ]);
-
-//     // Continue with file upload logic if validation passes
-//     if ($request->hasFile('file')) {
-//         // File upload logic...
-
-//         $fileName = $request->file->getClientOriginalName();
-//         $type = $request->file->getClientMimeType();
-//         $size = $request->file->getSize();
-//         $request->file->move(public_path('file'), $fileName);
-
-//         File::create([
-//             'user_id' => auth()->id(),
-//             'name' => $fileName,
-//             'type' => $type,
-//             'size' => $size,
-//         ]);
-
-//         return response()->json([
-//             'success' => true,
-//             'message' => __('File added successfully.'),
-//             'file_url' => asset('file/' . $fileName),
-//         ]);
-//     }
-// }
 
     public function storeText(Request $request)
     {

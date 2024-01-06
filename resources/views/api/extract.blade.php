@@ -18,7 +18,7 @@
                 <thead>
                     <tr>
                         <th>PID</th>
-                        @if(in_array('cabg', $selectedData))
+                        {{-- @if(in_array('cabg', $selectedData))
                             <th>Date of CABG</th>
                         @endif
                         @if(in_array('hb1ac', $selectedData))
@@ -38,7 +38,7 @@
                         @endif
                         @if(in_array('alcohol', $selectedData))
                             <th>Alcohol
-                        @endif
+                        @endif --}}
                         @if(in_array('bmi', $selectedData))
                             <th>BMI</th>
                         @endif
@@ -48,9 +48,9 @@
                         @if(in_array('Peak BP', $selectedData))
                             <th>Peak BP 
                         @endif
-                        @if(in_array('METS', $selectedData))
+                        {{-- @if(in_array('METS', $selectedData))
                             <th>Metabolic Equivalents
-                        @endif
+                        @endif --}}
 
                     </tr>
                 </thead>
@@ -59,7 +59,7 @@
                         <tr>
                             <td>{{ $item['PID'] }}</td>
 
-                            @if(in_array('cabg', $selectedData))
+                            {{-- @if(in_array('cabg', $selectedData))
                                 <td>{{ $item['cabg'] }}</td>
                             @endif
                             @if(in_array('hb1ac', $selectedData))
@@ -79,7 +79,7 @@
                             @endif
                             @if(in_array('alcohol', $selectedData))
                                 <td>{{ $item['alcohol'] }}</td>
-                            @endif
+                            @endif --}}
                             @if(in_array('bmi', $selectedData))
                                 <td>{{ $item['bmi'] }}</td>
                             @endif
@@ -89,9 +89,9 @@
                             @if(in_array('Peak BP', $selectedData))
                                 <td>{{ $item['Peak BP'] }}</td>
                             @endif
-                            @if(in_array('METS', $selectedData))
+                            {{-- @if(in_array('METS', $selectedData))
                                 <td>{{ $item['METS'] }}</td>
-                            @endif
+                            @endif --}}
                     @endforeach
                 </tbody>
             </table>
@@ -100,7 +100,7 @@
         <div class="card-body">
             {{-- <form id="dataForm" action="{{ route('store.database') }}" method="post"> --}}
             {{-- <a href="{{ route('export.excel') }}" class="btn btn-primary float-right mb-3">Export Excel</a>  --}}
-            <a href="{{ route('store.database')}}" class="btn btn-primary btn-right mb-3">Data extracted is correct!</a>
+            <a href="{{ route('store.database', ['sessionId' => session()->getId()]) }}" class="btn btn-primary btn-right mb-3">Data extracted is correct!</a>
             {{-- @foreach ($selectedData as $storeData)
                 <input type="hidden" name="selected_data[]" value="{{htmlentities(json_encode($apidata))}}"> 
             @endforeach
@@ -108,13 +108,6 @@
             <button type="button" class="btn btn-primary float-right mb-3" onclick="submitForm()">Store in Database</button>
             </form> --}}
         </div>
-
-        {{-- <script>
-            function submitForm() {
-              // Submit the form using JavaScript
-              document.getElementById('dataForm').submit();
-          }
-        </script> --}}
 
         @else
         <p>No data received from the API.</p>
