@@ -49,7 +49,7 @@ Route::delete('/files/delete/{id}', 'App\Http\Controllers\FilesController@delete
 Route::match(['get', 'post'],'/extract-api-data', 'App\Http\Controllers\APIController@getapi')->name('api.getapi');
 
 //Route::post('/process-api-data', 'App\Http\Controllers\APIController@processData')->name('api.processData');
-Route::get('/store-extracted', 'App\Http\Controllers\APIController@storeDataInDatabase')->name('store.database');
+Route::match(['get', 'post'],'/store-extracted', 'App\Http\Controllers\APIController@storeDataInDatabase')->name('store.database');
 Route::post('/files/download/', 'App\Http\Controllers\FilesController@download')->name('files.download');
 Route::get('/export', 'App\Http\Controllers\CsvExportController@exportExcelView')->name('export');
 Route::get('export-excel',[CsvExportController::class, 'exportExcel'])->name('export.excel');

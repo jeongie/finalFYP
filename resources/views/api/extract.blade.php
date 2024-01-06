@@ -100,14 +100,25 @@
         <div class="card-body">
             {{-- <form id="dataForm" action="{{ route('store.database') }}" method="post"> --}}
             {{-- <a href="{{ route('export.excel') }}" class="btn btn-primary float-right mb-3">Export Excel</a>  --}}
-            <a href="{{ route('store.database', ['sessionId' => session()->getId()]) }}" class="btn btn-primary btn-right mb-3">Data extracted is correct!</a>
-            {{-- @foreach ($selectedData as $storeData)
-                <input type="hidden" name="selected_data[]" value="{{htmlentities(json_encode($apidata))}}"> 
-            @endforeach
-            
-            <button type="button" class="btn btn-primary float-right mb-3" onclick="submitForm()">Store in Database</button>
-            </form> --}}
+            {{-- <a href="{{ route('store.database', ['sessionId' => session()->getId()]) }}" class="btn btn-primary btn-right mb-3">Data extracted is correct!</a> --}}
+            <form id="dataForm2" action="{{ route('store.database') }}" method="post">
+            @csrf
+            <input type="hidden" name="selectedData" value="{{ json_encode($selectedData) }}">
+
+            {{--  @foreach ($selectedData as $storeData)
+                <input type="hidden" name="selected_data[]" value="{{htmlentities(json_encode($apidata))}}">  --}}
+            <button type="submit" class="btn btn-primary float-right mb-3">Store in Database</button>
+            {{-- <button type="form" class="btn btn-primary float-right mb-3" onclick="submitForm()">Store in Database</button> --}}
+            </form>
         </div>
+
+        <script>
+            function submitForm() {
+              // Submit the form using JavaScript
+              document.getElementById('dataForm2').submit();
+          }
+        </script>
+
 
         @else
         <p>No data received from the API.</p>

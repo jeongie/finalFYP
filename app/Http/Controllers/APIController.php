@@ -14,6 +14,7 @@ class APIController extends Controller
     public function getapi(Request $request)
 {
     try {
+        \Log::info("testing in getapi");
         // // Send a POST request to the Python server
         // $response = Http::post('http://127.0.0.1:5000/', [
         //     'data' => $request->input('data'),
@@ -58,36 +59,32 @@ class APIController extends Controller
 public function storeDataInDatabase(Request $request)
 {
     try {
-        $sessionId = $request->query('sessionId');
+        \Log::info("selectedData is below");
+        \Log::info($request->input('selectedData'));
+        // $sessionId = $request->query('sessionId');
         $apidata = session()->get('apidata');
         // dd($apidata);
-        // dd($sessionId);
-        // echo($sessionId);
-        \Log::info('$sessionId'. $sessionId);
-        // need to create a new API? Or can pass the variable from prev page to this page?
-        // dd($response->json());
-        // TODO: Check if this is a successful request
-        // \Log::info($response->json());
+        $selectedData = json_decode($request->input('selectedData'), true);
+        // dd($request);
 
-        // echo 'error1';
 
         foreach ($apidata as $item) {
             Extraction::create([
-                'PID' => $item['PID'],
-                'cabg' => $item['cabg'],
-                'hb1ac' => $item['hb1ac'],
-                'Rest HR' => $item['Rest HR'],
-                'hypertension' => $item['hypertension'],
-                'cholestrol' => $item['cholestrol'],
-                'smoking' => $item['smoking'],
-                'alcohol' => $item['alcohol'],
-                'bmi' => $item['bmi'],
-                'Rest BP' => $item['Rest BP'],
-                'Peak BP' => $item['Peak BP'],
-                'METS' => $item['METS'],
+                'PID' => $item['PID'] ?? null,
+                'cabg' => $item['cabg'] ?? null,
+                'hb1ac' => $item['hb1ac'] ?? null,
+                'Rest HR' => $item['Rest HR'] ?? null,
+                'hypertension' => $item['hypertension'] ?? null,
+                'cholestrol' => $item['cholestrol'] ?? null,
+                'smoking' => $item['smoking'] ?? null,
+                'alcohol' => $item['alcohol'] ?? null,
+                'bmi' => $item['bmi'] ?? null,
+                'Rest BP' => $item['Rest BP'] ?? null,
+                'Peak BP' => $item['Peak BP'] ?? null,
+                'METS' => $item['METS'] ?? null,
             ]);
-
         }
+
         return redirect()->route('export')->withSuccess(__('File added successfully.'));
     } catch (\Exception $e) {
         // Log the exception message
