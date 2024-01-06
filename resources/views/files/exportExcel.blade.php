@@ -18,7 +18,8 @@
                             <strong>Export Extracted Data</strong>
                         </div>
                         <div class="card-body">
-                            <a href="{{ route('export.excel') }}" class="btn btn-primary mb-3">Export Excel</a>
+                            {{-- <a href="{{ route('export.excel', ['export_new_files' => true]) }}">Export New Files</a> --}}
+                            <a href="{{ route('export.excel') }}" class="btn btn-primary mb-3">Export All</a>
                         </div>
                     </div>
                 </div>

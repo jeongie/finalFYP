@@ -27,6 +27,7 @@
             $counter = 1;
             @endphp
 
+            
             @foreach($files as $file)
             {{-- <p><a href="{{ route('upload.show', ['id' => $file->id]) }}">{{ $file->name }}</a></p> --}}
               <tr>

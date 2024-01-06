@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('size');
             $table->string('path');
+            $table->boolean('is_new')->default(true);
             $table->timestamps();
 
             $table->foreign('user_id')

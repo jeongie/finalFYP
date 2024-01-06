@@ -19,7 +19,7 @@ class FilesController extends Controller
     public function index()
     {
         $userId = auth()->id();
-        $files = File::where('user_id', $userId)->get();
+        $files = File::where('user_id', $userId)->where('is_new', true)->get();
         //$files = File::all();
 
         return view('files.index', ['files' => $files]);
@@ -33,7 +33,8 @@ class FilesController extends Controller
         // Storage::disk('public')->path('/file/filename.docx'));
 
         $userId = auth()->id();
-        $files = File::where('user_id', $userId)->get();
+        $files = File::where('user_id', $userId)->where('is_new', true)->get();
+        // $files = File::where('user_id', $userId)->get();
         $filePath = [];
         // dd($files);
 
@@ -48,7 +49,7 @@ class FilesController extends Controller
         foreach ($files as $file) {
             $file->path = $filePath[$file->id];
         }
-    
+        // File::where('user_id', $userId)->update(['is_new' => false]);
         return view('files.filelist', ['files' => $files]);
 
     }
@@ -83,7 +84,8 @@ class FilesController extends Controller
             'name' => $fileName,
             'type' => $type,
             'size' => $size,
-            'path' => $filePath// Adjust the path as needed
+            'path' => $filePath,// Adjust the path as needed
+            'is_new'=> true, // Mark the file as newly uploaded
         ]);
 
         return redirect()->route('files.index')->withSuccess(__('File added successfully.'));

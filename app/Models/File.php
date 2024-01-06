@@ -17,6 +17,7 @@ class File extends Model
         'type',
         'size',
         'path',
+        'is_new',
 
     ];
 

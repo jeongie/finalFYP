@@ -14,7 +14,7 @@ class APIController extends Controller
     public function getapi(Request $request)
 {
     try {
-        \Log::info("testing in getapi");
+        // \Log::info("testing in getapi");
         // // Send a POST request to the Python server
         // $response = Http::post('http://127.0.0.1:5000/', [
         //     'data' => $request->input('data'),
@@ -26,7 +26,8 @@ class APIController extends Controller
         // print_r($responseData);
         // echo '</pre>';
         $userId = auth()->id();
-        $files = File::where('user_id', $userId)->get();
+        // $files = File::where('user_id', $userId)->get();
+        $files = File::where('user_id', $userId)->where('is_new', true)->get();
         $filePath = [];
         // dd($files);
 
@@ -60,8 +61,9 @@ class APIController extends Controller
 public function storeDataInDatabase(Request $request)
 {
     try {
-        \Log::info("selectedData is below");
-        \Log::info($request->input('selectedData'));
+        $userId = auth()->id();
+        // \Log::info("selectedData is below");
+        // \Log::info($request->input('selectedData'));
         // $sessionId = $request->query('sessionId');
         $apidata = session()->get('apidata');
         // dd($apidata);
@@ -85,8 +87,9 @@ public function storeDataInDatabase(Request $request)
                 'METS' => $item['METS'] ?? null,
             ]);
         }
+        // File::where('user_id', $userId)->update(['is_new' => false]);
 
-        return redirect()->route('export')->withSuccess(__('File added successfully.'));
+        return redirect()->route('export')->withSuccess(__('File Added successfully.'));
     } catch (\Exception $e) {
         // Log the exception message
         \Log::error('Exception: ' . $e->getMessage());

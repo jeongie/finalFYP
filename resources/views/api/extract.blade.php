@@ -18,7 +18,6 @@
                 <thead>
                     <tr>
                         <th>PID</th>
-                        {{-- <th>rest bp</th> --}}
                         @if(in_array('cabg', $selectedData))
                             <th>Date of CABG</th>
                         @endif
@@ -59,7 +58,6 @@
                     @foreach($apidata as $item)
                         <tr>
                             <td>{{ $item['PID'] }}</td>
-                            {{-- <td>{{ $item['Rest BP'] }}</td> --}}
 
                             @if(in_array('cabg', $selectedData))
                                 <td>{{ $item['cabg'] }}</td>
