@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+  .checkbox-section {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .checkbox-group {
+    /* Remove margin-right and add flex property */
+    display: flex;
+    flex-direction: column; /* Adjust this based on your layout preference */
+  }
+
+
+    

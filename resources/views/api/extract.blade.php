@@ -18,14 +18,8 @@
                 <thead>
                     <tr>
                         <th>PID</th>
-                        @if(in_array('cabg', $selectedData))
-                            <th>Date of CABG</th>
-                        @endif
                         @if(in_array('hb1ac', $selectedData))
                             <th>HbA1c 
-                        @endif
-                        @if(in_array('Rest HR', $selectedData))
-                            <th>Resting Heart Rate
                         @endif
                         @if(in_array('hypertension', $selectedData))
                             <th>Hypertension
@@ -41,6 +35,25 @@
                         @endif
                         @if(in_array('bmi', $selectedData))
                             <th>BMI</th>
+                        @endif
+                        @if(in_array('ef', $selectedData))
+                            <th>Ejection Fraction</th>
+                        @endif
+
+                        @if(in_array('cabg', $selectedData))
+                            <th>Date of CABG</th>
+                        @endif
+                        @if(in_array('Rest HR', $selectedData))
+                            <th>Resting Heart Rate
+                        @endif
+                        @if(in_array('Peak HR', $selectedData))
+                            <th>Peak Heart Rate
+                        @endif
+                        @if(in_array('HR reserve', $selectedData))
+                            <th>Heart Rate Reserve
+                        @endif
+                        @if(in_array('HR recovery', $selectedData))
+                            <th>Heart Rate Recovery
                         @endif
                         @if(in_array('Rest BP', $selectedData))
                             <th>Resting BP
@@ -59,14 +72,8 @@
                         <tr>
                             <td>{{ $item['PID'] }}</td>
 
-                            @if(in_array('cabg', $selectedData))
-                                <td>{{ $item['cabg'] }}</td>
-                            @endif
                             @if(in_array('hb1ac', $selectedData))
                                 <td>{{ $item['hb1ac'] }}</td>
-                            @endif
-                            @if(in_array('Rest HR', $selectedData))
-                                <td>{{ $item['Rest HR'] }}</td>
                             @endif
                             @if(in_array('hypertension', $selectedData))
                                 <td>{{ $item['hypertension'] }}</td>
@@ -82,6 +89,26 @@
                             @endif
                             @if(in_array('bmi', $selectedData))
                                 <td>{{ $item['bmi'] }}</td>
+                            @endif
+                            @if(in_array('ef', $selectedData))
+                                <td>{{ $item['ef'] }}</td>
+                            @endif
+
+
+                            @if(in_array('cabg', $selectedData))
+                                <td>{{ $item['cabg'] }}</td>
+                            @endif
+                            @if(in_array('Rest HR', $selectedData))
+                                <td>{{ $item['Rest HR'] }}</td>
+                            @endif
+                            @if(in_array('Peak HR', $selectedData))
+                                <td>{{ $item['Peak HR'] }}</td>
+                            @endif
+                            @if(in_array('HR reserve', $selectedData))
+                                <td>{{ $item['HR reserve'] }}</td>
+                            @endif
+                            @if(in_array('HR recovery', $selectedData))
+                                <td>{{ $item['HR recovery'] }}</td>
                             @endif
                             @if(in_array('Rest BP', $selectedData))
                                 <td>{{ $item['Rest BP'] }}</td>

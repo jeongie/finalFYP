@@ -15,17 +15,25 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('PID');
-            $table->string('cabg')->nullable();
+            
             $table->string('hb1ac')->nullable();
-            $table->string('Rest HR')->nullable();
             $table->string('hypertension')->nullable();
             $table->string('cholestrol')->nullable();
             $table->string('smoking')->nullable();
             $table->string('alcohol')->nullable();
             $table->decimal('bmi', 8, 2)->nullable();
+            $table->string('ef')->nullable();
+
+            $table->string('cabg')->nullable();
+            $table->string('METS')->nullable();
+            $table->string('Rest HR')->nullable();
+            $table->string('Peak HR')->nullable();
+            $table->string('HR reserve')->nullable();
+            $table->string('HR recovery')->nullable();
+  
             $table->string('Rest BP')->nullable();
             $table->string('Peak BP')->nullable();
-            $table->string('METS')->nullable();
+            
             $table->timestamps();
         });
     }

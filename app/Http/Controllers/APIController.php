@@ -75,17 +75,24 @@ public function storeDataInDatabase(Request $request)
             Extraction::create([
                 'user_id' => auth()->id(),
                 'PID' => $item['PID'],
-                'cabg' => $item['cabg'] ?? null,
+
                 'hb1ac' => $item['hb1ac'] ?? null,
-                'Rest HR' => $item['Rest HR'] ?? null,
                 'hypertension' => $item['hypertension'] ?? null,
                 'cholestrol' => $item['cholestrol'] ?? null,
                 'smoking' => $item['smoking'] ?? null,
                 'alcohol' => $item['alcohol'] ?? null,
                 'bmi' => $item['bmi'] ?? null,
+                'ef' => $item['ef'] ?? null,
+
+                'cabg' => $item['cabg'] ?? null,
+                'METS' => $item['METS'] ?? null,
+                'Rest HR' => $item['Rest HR'] ?? null,
+                'Peak HR' => $item['Rest HR'] ?? null,
+                'HR reserve' => $item['HR reserve'] ?? null,
+                'HR recovery' => $item['HR recover'] ?? null,
+
                 'Rest BP' => $item['Rest BP'] ?? null,
                 'Peak BP' => $item['Peak BP'] ?? null,
-                'METS' => $item['METS'] ?? null,
             ]);
         }
         // File::where('user_id', $userId)->update(['is_new' => false]);
