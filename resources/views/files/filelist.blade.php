@@ -49,11 +49,14 @@
       @foreach ($files as $file)
       {{-- <iframe src="{{Storage::disk('public')->url($file->path)}}" width="800" height="600"></iframe> --}}
       {{-- {{Storage::disk('public')->url($file->path)}} --}}
-      <iframe src="{{ asset('files/pre_stress_35891647e.docx') }}" width="100%" height="600" frameborder="0"></iframe>
+      {{-- <iframe src="{{ asset('files/pre_stress_35891647e.docx') }}" width="100%" height="600" frameborder="0"></iframe> --}}
+      <iframe src="https://docs.google.com/gview?url=https://www.diva-portal.org/smash/get/diva2:651699/FULLTEXT01.pdf&embedded=true" style="width:600px; height:500px;"></iframe>
+
+      {{-- <iframe src="http://docs.google.com/gview?url={{ urlencode(asset('files/'.$file->name)) }}&embedded=true" style="width:600px; height:500px;" ></iframe> --}}
       @endforeach
     
       {{-- <iframe src="{{ asset('file/pre_stress_35891647e.docx') }}" width="100%" height="600" frameborder="0"></iframe> --}}
-      {{-- <iframe src="https://docs.google.com/gview?url=C:/Users/hui_c/Downloads/report/pre_stress_35891647.docx&embedded=true"></iframe> --}}
+      {{-- <iframe src="https://docs.google.com/gview?url=https://www.diva-portal.org/smash/get/diva2:651699/FULLTEXT01.pdf&embedded=true"></iframe> --}}
     {{-- <div class="iframe-container">
         <iframe src= Storgae::url(public/file/pre_stress_35891647.docx) width="100%" height="600" frameborder="0"></iframe>
     </div> --}}
@@ -93,7 +96,7 @@
     flex-direction: column; /* Adjust this based on your layout preference */
   }
   </style> --}}
-  <style>
+  {{-- <style>
     .checkbox-group {
     font-size: 16px;
     }
@@ -101,16 +104,23 @@
     .sub-checkbox-group {
         margin-left: 20px;
     }
-</style>
+</style> --}}
 
-    
+  <style>
+      input {
+        
+        width: 20px;
+        height:20px;
+      }
+    </style>
+
+  
     <div class="bg-light p-5 rounded">
       <form id="dataForm" action="{{ route('api.getapi') }}" method="post">
         @csrf
         <h3>Select data to be extracted</h3>
-        
     
-          {{-- <div class="checkbox-group" style="font-size: 16px;"> --}}
+        <div class="checkbox-group" style="font-size: 16px;">
          <h5>Risk factors</h5>
         <input type="checkbox" name="data[]" value="hb1ac" checked> Hb1ac <br/>
         <input type="checkbox" name="data[]" value="hypertension" checked> Hypertension <br/>
@@ -120,7 +130,7 @@
         <input type="checkbox" name="data[]" value="bmi" checked> BMI <br/>
         <input type="checkbox" name="data[]" value="ef" checked> Ejection Fraction <br/>
     
-         <br><br><br>
+         <br><br>
          <h5>Test</h5>
         <input type="checkbox" name="data[]" value="cabg" checked> CABG <br/>
         <input type="checkbox" name="data[]" value="METS" checked> Metabolic Equivalents <br/>
@@ -138,7 +148,7 @@
           <input type="checkbox" name="data[]" value="Rest BP" checked> Resting Blood Pressure <br/>
           <input type="checkbox" name="data[]" value="Peak BP" checked> Peak Blood Pressure <br/>
         {{-- </div> --}}
-        {{-- </div> --}}
+        </div>
 
         <button type="button" class="btn btn-primary float-right mb-3" onclick="submitForm()">Extract</button>
       </form>

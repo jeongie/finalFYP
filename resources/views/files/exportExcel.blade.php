@@ -20,6 +20,7 @@
             <div class="row mt-5">
                 <div class="col-6 offset-3">
                     <div class="card">
+                        @include('layouts.partials.messages')
                         <div class="card-header">
                             <strong>Export Extracted Data</strong>
                         </div>

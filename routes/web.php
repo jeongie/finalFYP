@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 * File Routes
 */
 Route::get('/files', 'App\Http\Controllers\FilesController@index')->name('files.index');
+Route::get('/dashboard', 'App\Http\Controllers\FilesController@allFile')->name('dashboard');
 Route::get('/files/upload', 'App\Http\Controllers\FilesController@create')->name('files.create');
 Route::post('/files/store', 'App\Http\Controllers\FilesController@store')->name('files.store');
 Route::post('/files/storeText', 'App\Http\Controllers\FilesController@storeText')->name('files.storeText');

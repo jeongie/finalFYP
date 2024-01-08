@@ -22,7 +22,10 @@ class StoreFileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => 'required|file|mimes:doc,docx,txt,pdf'
+            // 'file' => 'required|file|mimes:doc,docx,txt,pdf',
+            'doc'  => array('application/msword', 'application/vnd.ms-office'),
+            'docx' => array('application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/zip'),
+            'pdf' => array('application/pdf'),
         ];
     }
 }

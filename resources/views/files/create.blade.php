@@ -25,14 +25,14 @@
             
             @csrf
             <div class="form-group mt-4">
-              <input type="file" name="file" class="form-control" accept=".doc,.docx,.pdf" >
+              <input type="file" name="file[]" class="form-control" multiple accept=".doc,.docx,.pdf"/>
             </div>
 
-            <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Save</button>
+            <button class= "w-100 btn btn-lg btn-primary mt-4" type="submit">Save</button>
             
         </form>
 
-        <br><br><br>
+        {{-- <br><br><br>
         <h3>or</h3>
         <h1>Text</h1>
 
@@ -40,7 +40,7 @@
             @csrf
             <textarea name="text" rows="10" cols="145"></textarea>
             <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Save Text</button>
-        </form>
+        </form> --}}
         
     </div>
 @endsection

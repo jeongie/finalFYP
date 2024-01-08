@@ -9,7 +9,7 @@
     <div class="bg-light p-5 rounded">
         <h1>Files</h1>
         @include('layouts.partials.messages')
-        <a href="{{ route('files.create') }}" class="btn btn-primary float-right mb-3">Add file/text</a>
+        <a href="{{ route('files.create') }}" class="btn btn-primary float-right mb-3">Add file(s)</a>
 
         <table class="w3-table w3-bordered w3-striped">
           <thead>

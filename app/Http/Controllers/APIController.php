@@ -97,7 +97,7 @@ public function storeDataInDatabase(Request $request)
         }
         // File::where('user_id', $userId)->update(['is_new' => false]);
 
-        return redirect()->route('export')->withSuccess(__('File Added successfully.'));
+        return redirect()->route('export')->withSuccess(__('Extracted data is saved.'));
     } catch (\Exception $e) {
         // Log the exception message
         \Log::error('Exception: ' . $e->getMessage());

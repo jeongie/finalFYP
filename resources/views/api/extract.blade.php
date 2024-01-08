@@ -6,7 +6,7 @@
 
 @section('content')
 <a href="/dashboard" class="custom-btn"><i class="fa fa-home"></i></a>
-<a href="/files" class="custom-btn"><i class="fa fa-arrow-left"></i></a>
+<a href="/files/filelist" class="custom-btn"><i class="fa fa-arrow-left"></i></a>
     <div class="bg-light p-5 rounded" >
         <h1>Extracted Medical Data</h1>
         @include('layouts.partials.messages')

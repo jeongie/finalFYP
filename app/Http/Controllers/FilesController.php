@@ -26,6 +26,15 @@ class FilesController extends Controller
 
     }
 
+    public function allFile()
+    {
+        $userId = auth()->id();
+        $files = File::where('user_id', $userId)->get();
+
+        return view('dashboard', ['files' => $files]);
+
+    }
+
     public function filelist()
     {
         
@@ -64,32 +73,55 @@ class FilesController extends Controller
 {
     // Validate file
     $request->validate([
-        'file' => 'required|mimes:doc,docx,pdf|max:10240', // Adjust the max file size if needed
+        'file' => 'required', // Adjust the max file size if needed
+        'file.*' => 'required|mimes:doc,docx,pdf|max:10240', // Adjust the max file size if needed
     ]);
 
     // Continue with file upload logic if validation passes
     if ($request->hasFile('file')) {
-        $uploadedFile = $request->file('file');
-        $fileName = $uploadedFile->getClientOriginalName();
-        $type = $uploadedFile->getClientMimeType();
-        $size = $uploadedFile->getSize();
+        foreach($request->file as $uploadedFile){
+            // $uploadedFile = $request->file('file');
+            $fileName = $uploadedFile->getClientOriginalName();
+            $type = $uploadedFile->getClientMimeType();
+            $size = $uploadedFile->getSize();
 
-        // Move the uploaded file to the public/file directory
-        // $uploadedFile->move(public_path('file'), $fileName);
-        $filePath= Storage::disk('public')->putFileAs('files', $uploadedFile, $fileName);
+            // Move the uploaded file to the public/file directory
+            // $uploadedFile->move(public_path('file'), $fileName);
+            $filePath= Storage::disk('public')->putFileAs('files', $uploadedFile, $fileName);
 
-        // Create a new File record in the database
-        File::create([
-            'user_id' => auth()->id(),
-            'name' => $fileName,
-            'type' => $type,
-            'size' => $size,
-            'path' => $filePath,// Adjust the path as needed
-            'is_new'=> true, // Mark the file as newly uploaded
-        ]);
+            // Create a new File record in the database
+            File::create([
+                'user_id' => auth()->id(),
+                'name' => $fileName,
+                'type' => $type,
+                'size' => $size,
+                'path' => $filePath,// Adjust the path as needed
+                'is_new'=> true, // Mark the file as newly uploaded
+            ]);
 
-        return redirect()->route('files.index')->withSuccess(__('File added successfully.'));
+        }
     }
+        // // $uploadedFile = $request->file('file');
+        // $fileName = $uploadedFile->getClientOriginalName();
+        // $type = $uploadedFile->getClientMimeType();
+        // $size = $uploadedFile->getSize();
+
+        // // Move the uploaded file to the public/file directory
+        // // $uploadedFile->move(public_path('file'), $fileName);
+        // $filePath= Storage::disk('public')->putFileAs('files', $uploadedFile, $fileName);
+
+        // // Create a new File record in the database
+        // File::create([
+        //     'user_id' => auth()->id(),
+        //     'name' => $fileName,
+        //     'type' => $type,
+        //     'size' => $size,
+        //     'path' => $filePath,// Adjust the path as needed
+        //     'is_new'=> true, // Mark the file as newly uploaded
+        // ]);
+
+        return redirect()->route('files.index')->withSuccess(__('Files added successfully.'));
+    
 }
 
 
