@@ -13,41 +13,6 @@ class CsvExportController extends Controller
         return view('files.exportExcel');
     }
 
-    // public function exportExcel()
-    // {
-    //     $name = 'extractedReport.csv';
-    //     $headers = [
-    //         'Content-Disposition' => 'attachment; filename='. $name,
-    //     ];
-    //     $colom = \Illuminate\Support\Facades\Schema::getColumnListing("extraction");
-    //     $temp_colom = array_flip($colom);
-    //     unset($temp_colom['id']);
-    //     $colom = array_flip($temp_colom);
-
-    //     return response()->stream(function() use($colom){
-    //         $userId = auth()->id();
-    //         $file = fopen('php://output', 'w+');
-    //         fputcsv($file, $colom);
-    //         $data = Extraction::where('user_id', $userId)->cursor();
-            
-    //         foreach ($data as $key => $value) {
-    //             $data = $value->toArray();
-                
-    //             unset($data['id']);
-
-    //             fputcsv($file, $data);
-    //         }
-    //         $blanks = array("\t","\t","\t","\t");
-    //         fputcsv($file, $blanks);
-    //         $blanks = array("\t","\t","\t","\t");
-    //         fputcsv($file, $blanks);
-    //         $blanks = array("\t","\t","\t","\t");
-    //         fputcsv($file, $blanks);
-
-    //         fclose($file);
-    //     }, 200, $headers);        
-    // }
-
     public function exportExcel(Request $request)
     {
         $name = 'extractedReport.csv';
@@ -68,7 +33,7 @@ class CsvExportController extends Controller
 
             $data = $request->has('export_new_files')
                 // ? Extraction::where('user_id', $userId)->where('is_new', true)->cursor()
-                ? Extraction::join('files', 'extraction.id', '=', 'files.id')
+                ? Extraction::join('files', 'extraction.PID', '=', 'files.PID')
                     ->where('files.user_id', $userId)
                     ->where('files.is_new', true)
                     ->select('extraction.*')

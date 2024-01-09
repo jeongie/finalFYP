@@ -8,10 +8,10 @@ use Illuminate\Http\UploadedFile;
 use App\Http\Requests\StoreFileRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
-//use Symfony\Component\HttpClient\HttpClient;
-//use Symfony\Component\HttpClient\Exception\ClientExceptionInterface;
-// use Illuminate\Support\Facades\Auth;
-// use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\Shared\ZipArchive;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class FilesController extends Controller
 {
@@ -38,9 +38,6 @@ class FilesController extends Controller
     public function filelist()
     {
         
-        // dd(Storage::disk('public')->path('/files/student entry.docx'));
-        // Storage::disk('public')->path('/file/filename.docx'));
-
         $userId = auth()->id();
         $files = File::where('user_id', $userId)->where('is_new', true)->get();
         // $files = File::where('user_id', $userId)->get();
@@ -76,67 +73,86 @@ class FilesController extends Controller
         'file' => 'required', // Adjust the max file size if needed
         'file.*' => 'required|mimes:doc,docx,pdf|max:10240', // Adjust the max file size if needed
     ]);
-
-    // Continue with file upload logic if validation passes
+    
     if ($request->hasFile('file')) {
-        foreach($request->file as $uploadedFile){
-            // $uploadedFile = $request->file('file');
-            $fileName = $uploadedFile->getClientOriginalName();
+        foreach ($request->file as $uploadedFile) {
+
+            $fileNameExt = $uploadedFile->getClientOriginalName();
+            $fileName = pathinfo($fileNameExt, PATHINFO_FILENAME);
+           
+            if (substr_count($fileName, '_')) {
+                $filenameParts = explode('_', $fileName);
+                $pidn = $filenameParts[0] . '_' . end($filenameParts);
+            } else {
+                $pidn = $fileName;
+            }
+
+            echo $pidn;
+
+            $pid= $pidn;
             $type = $uploadedFile->getClientMimeType();
             $size = $uploadedFile->getSize();
-
-            // Move the uploaded file to the public/file directory
-            // $uploadedFile->move(public_path('file'), $fileName);
-            $filePath= Storage::disk('public')->putFileAs('files', $uploadedFile, $fileName);
-
+            $filePath = Storage::disk('public')->putFileAs('files', $uploadedFile, $fileName);
+    
+            // Convert to PDF if the file is a Word document
+            if ($uploadedFile->getClientOriginalExtension() === 'docx' || $uploadedFile->getClientOriginalExtension() === 'doc') {
+                $pdfFilePath = $this->convertToPdf($uploadedFile);
+                $filePath = $pdfFilePath; // Update the file path to the PDF path
+            }
+    
             // Create a new File record in the database
             File::create([
                 'user_id' => auth()->id(),
+                'PID'=> $pid,
                 'name' => $fileName,
                 'type' => $type,
                 'size' => $size,
-                'path' => $filePath,// Adjust the path as needed
-                'is_new'=> true, // Mark the file as newly uploaded
+                'path' => $filePath,
+                'is_new' => true,
             ]);
-
         }
     }
-        // // $uploadedFile = $request->file('file');
-        // $fileName = $uploadedFile->getClientOriginalName();
-        // $type = $uploadedFile->getClientMimeType();
-        // $size = $uploadedFile->getSize();
-
-        // // Move the uploaded file to the public/file directory
-        // // $uploadedFile->move(public_path('file'), $fileName);
-        // $filePath= Storage::disk('public')->putFileAs('files', $uploadedFile, $fileName);
-
-        // // Create a new File record in the database
-        // File::create([
-        //     'user_id' => auth()->id(),
-        //     'name' => $fileName,
-        //     'type' => $type,
-        //     'size' => $size,
-        //     'path' => $filePath,// Adjust the path as needed
-        //     'is_new'=> true, // Mark the file as newly uploaded
-        // ]);
 
         return redirect()->route('files.index')->withSuccess(__('Files added successfully.'));
     
 }
 
-
-    public function storeText(Request $request)
+    private function convertToPdf($uploadedFile)
     {
-        // $client = HttpClient::create();  //newly added
-        $text = $request->input('text');
+        $domPdfPath = base_path( 'vendor/dompdf/dompdf');
+        \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
+        \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
+        // Load the Word document
+        $phpWord = IOFactory::load($uploadedFile->getRealPath());
+        // $phpWord = IOFactory::load($uploadedFile->$filePath);
 
-        if (!empty($text)) {
-            $fileName = time() . '.txt';
-            Storage::disk('public')->put($fileName, $text);
+        // Set up PDF rendering
+        $pdfWriter = IOFactory::createWriter($phpWord, 'PDF');
 
-            return redirect()->back()->with('success', 'Text stored successfully.');
-        }
+        // Save the PDF to storage
+        $pdfFileName = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME) . '.pdf';
+        // $pdfFilePath = Storage::disk('public')->path('files/' . $pdfFileName);
+        $pdfFilePath = 'files/' . $pdfFileName;
+
+        // $pdfWriter->save($pdfFilePath);
+        $pdfWriter->save(Storage::disk('public')->path($pdfFilePath));
+
+        return $pdfFilePath;
     }
+
+
+        // public function storeText(Request $request)
+    // {
+    //     // $client = HttpClient::create();  //newly added
+    //     $text = $request->input('text');
+
+    //     if (!empty($text)) {
+    //         $fileName = time() . '.txt';
+    //         Storage::disk('public')->put($fileName, $text);
+
+    //         return redirect()->back()->with('success', 'Text stored successfully.');
+    //     }
+    // }
 
        
     public function delete(Request $request, $id)
@@ -146,45 +162,5 @@ class FilesController extends Controller
         return redirect()->back()->with('success', 'File deleted successfully');
     }
 
-    // public function show($id)
-    // {
-    //     $file = File::find($id);
-
-    //     if (!$file) {
-    //         abort(404);
-    //     }
-
-    //     $path = public_path($file->path . '/file' . $file->filename);
-
-    //     if (!File::exists($path)) {
-    //         abort(404);
-    //     }
-
-    //     $file = File::get($path);
-    //     $type = File::mimeType($path);
-
-    //     $response = Response::make($file, 200);
-    //     $response->header("Content-Type", $type);
-
-    //     return $response;
-    // }
-
-    // public function showFile($id)
-    // {
-    //     // Fetch the file from the database
-    //     $file = File::findOrFail($id);
-
-    //     // Check if the file exists
-    //     if ($file) {
-    //         // Access the file path
-    //         $filePath = Storage::url($file->path);
-
-    //         // Now you can use $filePath to do whatever you need (e.g., display in an iframe)
-    //         return view('files.filelist', ['filePath' => $filePath]);
-    //     } else {
-    //         // Handle the case where the file with the given ID doesn't exist
-    //         return abort(404);
-    //     }
-    // }
  }
  

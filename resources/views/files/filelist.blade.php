@@ -46,45 +46,18 @@
 
   
     <div class="iframe-container">
+      <br>
+      <p><a target="iframe_a">Preview of documents</a></p>
       @foreach ($files as $file)
-      {{-- <iframe src="{{Storage::disk('public')->url($file->path)}}" width="800" height="600"></iframe> --}}
-      {{-- {{Storage::disk('public')->url($file->path)}} --}}
-      {{-- <iframe src="{{ asset('files/pre_stress_35891647e.docx') }}" width="100%" height="600" frameborder="0"></iframe> --}}
-      <iframe src="https://docs.google.com/gview?url=https://www.diva-portal.org/smash/get/diva2:651699/FULLTEXT01.pdf&embedded=true" style="width:600px; height:500px;"></iframe>
+      <iframe src="{{ asset($file->path) }}" width="60%" height="500" frameborder="0"></iframe>
 
-      {{-- <iframe src="http://docs.google.com/gview?url={{ urlencode(asset('files/'.$file->name)) }}&embedded=true" style="width:600px; height:500px;" ></iframe> --}}
       @endforeach
     
-      {{-- <iframe src="{{ asset('file/pre_stress_35891647e.docx') }}" width="100%" height="600" frameborder="0"></iframe> --}}
-      {{-- <iframe src="https://docs.google.com/gview?url=https://www.diva-portal.org/smash/get/diva2:651699/FULLTEXT01.pdf&embedded=true"></iframe> --}}
-    {{-- <div class="iframe-container">
-        <iframe src= Storgae::url(public/file/pre_stress_35891647.docx) width="100%" height="600" frameborder="0"></iframe>
-    </div> --}}
-    {{-- <iframe src="https://docs.google.com/gview?url=C:/Users/hui_c/Downloads/report/pre_stress_35891647.docx&embedded=true"></iframe>
-    <iframe src="{{ asset('public/files/F0326941-1756-4366-91C4-ABFBB0E77C42.pdf') }}" style="width:100%; height:600px;" frameborder="0"></iframe> --}}
-
-    <p><a href="https://www.w3schools.com" target="iframe_a">Preview of documents</a></p>
+    <p><a target="iframe_a"></a></p>
     </div>
 
+   
     {{-- <style>
-        .iframe-container {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            padding-top: 56.25%; /* 16:9 aspect ratio (height: 9/16 = 0.5625) */
-        }
-
-        .iframe-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-    </style> --}}
-
-
-  {{-- <style>
   .checkbox-section {
     display: flex;
     justify-content: space-between;

@@ -47,8 +47,14 @@
           </tbody>
         </table>
         <br><br>
-        <a href="/files/filelist" class="btn btn-primary btn-right mb-3">Proceed</a>
-        {{-- <a href="{{ route('files.create') }}" class="btn btn-primary float-right mb-3">Add file/text</a> --}}
+        
+        @if(count($files) > 0)
+          <a href="/files/filelist" class="btn btn-primary btn-right mb-3">Proceed</a>
+        @else
+          <button class="btn btn-secondary btn-right mb-3" disabled>Proceed (Upload a file first)</button>
+        @endif
+        {{-- <a href="/files/filelist" class="btn btn-primary btn-right mb-3">Proceed</a>
+        <a href="{{ route('files.create') }}" class="btn btn-primary float-right mb-3">Add file/text</a> --}}
 
     </div>
 @endsection
