@@ -30,7 +30,6 @@
 
             
             @foreach($files as $file)
-            {{-- <p><a href="{{ route('upload.show', ['id' => $file->id]) }}">{{ $file->name }}</a></p> --}}
               <tr>
                 <td width="3%">{{ $counter++ }}</td>
                 <td>{{ $file->name }}</td>
@@ -49,35 +48,13 @@
       <br>
       <p><a target="iframe_a">Preview of documents</a></p>
       @foreach ($files as $file)
-      <iframe src="{{ asset($file->path) }}" width="60%" height="500" frameborder="0"></iframe>
+      <iframe src="{{ asset($file->path) }}" width="80%" height="500" frameborder="0"></iframe>
 
       @endforeach
     
     <p><a target="iframe_a"></a></p>
     </div>
 
-   
-    {{-- <style>
-  .checkbox-section {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .checkbox-group {
-    /* Remove margin-right and add flex property */
-    display: flex;
-    flex-direction: column; /* Adjust this based on your layout preference */
-  }
-  </style> --}}
-  {{-- <style>
-    .checkbox-group {
-    font-size: 16px;
-    }
-
-    .sub-checkbox-group {
-        margin-left: 20px;
-    }
-</style> --}}
 
   <style>
       input {
@@ -100,15 +77,14 @@
         <input type="checkbox" name="data[]" value="cholestrol" checked> Cholestrol <br/>
         <input type="checkbox" name="data[]" value="smoking" checked> Smoking <br/>
         <input type="checkbox" name="data[]" value="alcohol" checked> Alcohol <br/>
+        <input type="checkbox" name="data[]" value="diet" checked> Diet <br/>
         <input type="checkbox" name="data[]" value="bmi" checked> BMI <br/>
         <input type="checkbox" name="data[]" value="ef" checked> Ejection Fraction <br/>
-    
-         <br><br>
-         <h5>Test</h5>
-        <input type="checkbox" name="data[]" value="cabg" checked> CABG <br/>
+        <br>
+        <h5>Test</h5>
         <input type="checkbox" name="data[]" value="METS" checked> Metabolic Equivalents <br/>
-        {{-- <input type="checkbox" name="data[]" value="HR" checked> Heart Rate <br/> --}}
-        <h6>Heart Rate</h6>
+        <br>
+        <h5>Heart Rate</h5>
         {{-- <div class="sub-checkbox-group"> --}}
           <input type="checkbox" name="data[]" value="Rest HR" checked> Resting Heart Rate <br/>
           <input type="checkbox" name="data[]" value="Peak HR" checked> Peak Heart Rate <br/>
@@ -116,7 +92,7 @@
           <input type="checkbox" name="data[]" value="HR recovery" checked> Heart Rate Recovery<br/>
         {{-- </div> --}}
         {{-- <input type="checkbox" name="data[]" value="BP" checked> Blood Pressure <br/> --}}
-        <h6>Blood Pressure</h6>
+        <br><h5>Blood Pressure</h5>
         {{-- <div class="sub-checkbox-group"> --}}
           <input type="checkbox" name="data[]" value="Rest BP" checked> Resting Blood Pressure <br/>
           <input type="checkbox" name="data[]" value="Peak BP" checked> Peak Blood Pressure <br/>
@@ -130,37 +106,7 @@
 
     <script>
       function submitForm() {
-        // // Submit the form using JavaScript
-        // const bloodPressureCheckbox = document.querySelector('input[value="Peak BP"]');
-        // // const restBPCheckbox = document.querySelector('input[value="Rest BP"]');
-        // const heartRateCheckbox = document.querySelector('input[value="Peak HR"]');
-        // if (bloodPressureCheckbox.checked=== false) {
-        //     const restBPCheckbox = document.querySelector('input[value="Rest BP"]');
-        //     const peakBPCheckbox = document.querySelector('input[value="Peak BP"]');
     
-        //     restBPCheckbox.checked =false;
-        //     peakBPCheckbox.checked = false;
-        //     // restingBPCheckbox.checked = false; 
-        // }
-        // else{
-        //   formData['BP'] = 'Peak BP';
-        //   }
-
-        // if (heartRateCheckbox.checked=== false){
-        //   const restHRCheckbox = document.querySelector('input[value="Rest HR"]');
-        //   const peakHRCheckbox = document.querySelector('input[value="Peak HR"]');
-        //   const HRresCheckbox = document.querySelector('input[value="HR reserve"]');
-        //   const HRrecovCheckbox = document.querySelector('input[value="HR recovery"]');
-
-        //   restHRCheckbox.checked= false;
-        //   peakHRCheckbox.checked=false;
-        //   HRresCheckbox.checked=false;
-        //   HRrecovCheckbox.checked=false;
-        // }
-        // else{
-        //   formData['HR'] = 'Peak HR';
-        // }
-      
       document.getElementById('dataForm').submit();
           
       }

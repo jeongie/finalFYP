@@ -40,7 +40,6 @@ class FilesController extends Controller
         
         $userId = auth()->id();
         $files = File::where('user_id', $userId)->where('is_new', true)->get();
-        // $files = File::where('user_id', $userId)->get();
         $filePath = [];
         // dd($files);
 
@@ -79,6 +78,12 @@ class FilesController extends Controller
 
             $fileNameExt = $uploadedFile->getClientOriginalName();
             $fileName = pathinfo($fileNameExt, PATHINFO_FILENAME);
+            $existingfileName = File::where('name',$fileName)->exists();
+
+            if ($existingfileName) {
+                // File with the same name exists, append a suffix
+                $fileName = $this->generateUniquefileName($fileName);
+            }
            
             if (substr_count($fileName, '_')) {
                 $filenameParts = explode('_', $fileName);
@@ -87,7 +92,13 @@ class FilesController extends Controller
                 $pidn = $fileName;
             }
 
-            echo $pidn;
+            $existingFiles = File::where('pid',$pidn)->exists();
+
+            if ($existingFiles) {
+                // File with the same name exists, append a suffix
+                $pidn = $this->generateUniquePid($pidn);
+            }
+
 
             $pid= $pidn;
             $type = $uploadedFile->getClientMimeType();
@@ -117,6 +128,31 @@ class FilesController extends Controller
     
 }
 
+    public function generateUniquePid($basePid)
+    {
+        $counter = 1;
+
+        // Append a suffix until a unique pid is found
+        while (File::where('pid', $basePid . '_' . $counter)->exists()) {
+            $counter++;
+        }
+
+        return $basePid . '_' . $counter;
+    }
+
+    public function generateUniquefileName($basefileName)
+    {
+        $counter = 1;
+
+        // Append a suffix until a unique pid is found
+        while (File::where('name', $basefileName . '('.$counter.')')->exists()) {
+            $counter++;
+        }
+
+        return $basefileName . '('.$counter.')';
+    }
+
+
     private function convertToPdf($uploadedFile)
     {
         $domPdfPath = base_path( 'vendor/dompdf/dompdf');
@@ -139,21 +175,6 @@ class FilesController extends Controller
 
         return $pdfFilePath;
     }
-
-
-        // public function storeText(Request $request)
-    // {
-    //     // $client = HttpClient::create();  //newly added
-    //     $text = $request->input('text');
-
-    //     if (!empty($text)) {
-    //         $fileName = time() . '.txt';
-    //         Storage::disk('public')->put($fileName, $text);
-
-    //         return redirect()->back()->with('success', 'Text stored successfully.');
-    //     }
-    // }
-
        
     public function delete(Request $request, $id)
     {

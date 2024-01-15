@@ -11,9 +11,9 @@ class Extraction extends Model
     protected $table = 'extraction';
 
     protected $fillable = [
-        'user_id','PID',
+        'user_id','PID','age',
         'DM','dyslipi',
-        'IHD',
+        'IHD','gender',
         'cabg',
         'hb1ac',
         'ef','Rest HR','Peak HR',
@@ -22,6 +22,7 @@ class Extraction extends Model
         'cholestrol',
         'smoking',
         'alcohol',
+        'diet',
         'bmi',
         'Rest BP',
         'Peak BP',

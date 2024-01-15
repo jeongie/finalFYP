@@ -31,16 +31,6 @@
             <button class= "w-100 btn btn-lg btn-primary mt-4" type="submit">Save</button>
             
         </form>
-
-        {{-- <br><br><br>
-        <h3>or</h3>
-        <h1>Text</h1>
-
-        <form action="{{ route('files.storeText') }}" method="POST">
-            @csrf
-            <textarea name="text" rows="10" cols="145"></textarea>
-            <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Save Text</button>
-        </form> --}}
         
     </div>
 @endsection

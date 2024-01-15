@@ -18,6 +18,8 @@
                 <thead>
                     <tr>
                         <th>PID</th>
+                        <th>Gender</th>
+                        <th>Age</th>
                         @if(in_array('hb1ac', $selectedData))
                             <th>HbA1c 
                         @endif
@@ -33,6 +35,9 @@
                         @if(in_array('alcohol', $selectedData))
                             <th>Alcohol
                         @endif
+                        @if(in_array('diet', $selectedData))
+                            <th>Diet
+                        @endif
                         @if(in_array('bmi', $selectedData))
                             <th>BMI</th>
                         @endif
@@ -40,9 +45,6 @@
                             <th>Ejection Fraction</th>
                         @endif
 
-                        @if(in_array('cabg', $selectedData))
-                            <th>Date of CABG</th>
-                        @endif
                         @if(in_array('Rest HR', $selectedData))
                             <th>Resting Heart Rate
                         @endif
@@ -71,7 +73,8 @@
                     @foreach($apidata as $item)
                         <tr>
                             <td>{{ $item['PID'] }}</td>
-
+                            <td>{{ $item['gender'] }}</td>
+                            <td>{{ $item['age'] }}</td>
                             @if(in_array('hb1ac', $selectedData))
                                 <td>{{ $item['hb1ac'] }}</td>
                             @endif
@@ -87,6 +90,9 @@
                             @if(in_array('alcohol', $selectedData))
                                 <td>{{ $item['alcohol'] }}</td>
                             @endif
+                            @if(in_array('diet', $selectedData))
+                                <td>{{ $item['diet'] }}</td>
+                            @endif
                             @if(in_array('bmi', $selectedData))
                                 <td>{{ $item['bmi'] }}</td>
                             @endif
@@ -94,10 +100,6 @@
                                 <td>{{ $item['ef'] }}</td>
                             @endif
 
-
-                            @if(in_array('cabg', $selectedData))
-                                <td>{{ $item['cabg'] }}</td>
-                            @endif
                             @if(in_array('Rest HR', $selectedData))
                                 <td>{{ $item['Rest HR'] }}</td>
                             @endif
@@ -135,7 +137,6 @@
             {{--  @foreach ($selectedData as $storeData)
                 <input type="hidden" name="selected_data[]" value="{{htmlentities(json_encode($apidata))}}">  --}}
             <button type="submit" class="btn btn-primary float-right mb-3">Store in Database</button>
-            {{-- <button type="form" class="btn btn-primary float-right mb-3" onclick="submitForm()">Store in Database</button> --}}
             </form>
         </div>
 

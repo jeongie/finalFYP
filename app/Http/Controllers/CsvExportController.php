@@ -32,11 +32,11 @@ class CsvExportController extends Controller
             fputcsv($file, $column);
 
             $data = $request->has('export_new_files')
-                // ? Extraction::where('user_id', $userId)->where('is_new', true)->cursor()
                 ? Extraction::join('files', 'extraction.PID', '=', 'files.PID')
                     ->where('files.user_id', $userId)
                     ->where('files.is_new', true)
                     ->select('extraction.*')
+                    ->distinct()
                     ->cursor()
                 : Extraction::where('user_id', $userId)->cursor();
 

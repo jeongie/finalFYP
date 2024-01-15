@@ -38,8 +38,10 @@ class APIController extends Controller
         }
 
         $selectedData = $request->input('data');
+        // dd($selectedData);
 
             // Send a POST request to the Python server
+            // https://fyp-flask-3gborstie-jeongies-projects.vercel.app/
             $response = Http::post('http://127.0.0.1:5000/', [
                 'data' => $selectedData,
                 'filePath'=> $filePath,
@@ -47,6 +49,7 @@ class APIController extends Controller
 
             // Get the response from the Python server
             $responseData = $response->json();
+            // dd($responseData);
            
 
             session(['apidata' => $responseData]);
@@ -76,20 +79,22 @@ public function storeDataInDatabase(Request $request)
                 'user_id' => auth()->id(),
                 'PID' => $item['PID'],
 
+                'gender'=>$item['gender']??null,
+                'age'=>$item['age']??null,
                 'hb1ac' => $item['hb1ac'] ?? null,
                 'hypertension' => $item['hypertension'] ?? null,
                 'cholestrol' => $item['cholestrol'] ?? null,
                 'smoking' => $item['smoking'] ?? null,
                 'alcohol' => $item['alcohol'] ?? null,
+                'diet'=>$item['diet'] ?? null,
                 'bmi' => $item['bmi'] ?? null,
                 'ef' => $item['ef'] ?? null,
 
-                'cabg' => $item['cabg'] ?? null,
                 'METS' => $item['METS'] ?? null,
                 'Rest HR' => $item['Rest HR'] ?? null,
-                'Peak HR' => $item['Rest HR'] ?? null,
+                'Peak HR' => $item['Peak HR'] ?? null,
                 'HR reserve' => $item['HR reserve'] ?? null,
-                'HR recovery' => $item['HR recover'] ?? null,
+                'HR recovery' => $item['HR recovery'] ?? null,
 
                 'Rest BP' => $item['Rest BP'] ?? null,
                 'Peak BP' => $item['Peak BP'] ?? null,

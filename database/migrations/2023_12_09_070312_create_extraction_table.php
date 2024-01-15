@@ -16,18 +16,20 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('PID');
             
-            $table->string('hb1ac')->nullable();
+            $table->string('gender')->nullable();
+            $table->integer('age')->nullable();
+            $table->decimal('hb1ac', 5, 2)->nullable();
             $table->string('hypertension')->nullable();
-            $table->string('cholestrol')->nullable();
+            $table->decimal('cholestrol', 5, 2)->nullable();
             $table->string('smoking')->nullable();
             $table->string('alcohol')->nullable();
+            $table->string('diet')->nullable();
             $table->decimal('bmi', 8, 2)->nullable();
-            $table->string('ef')->nullable();
+            $table->decimal('ef', 5,2)->nullable();
 
-            $table->string('cabg')->nullable();
-            $table->string('METS')->nullable();
-            $table->string('Rest HR')->nullable();
-            $table->string('Peak HR')->nullable();
+            $table->float('METS')->nullable();
+            $table->integer('Rest HR')->nullable();
+            $table->integer('Peak HR')->nullable();
             $table->string('HR reserve')->nullable();
             $table->string('HR recovery')->nullable();
   
