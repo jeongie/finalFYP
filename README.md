@@ -17,3 +17,6 @@ Functional Requirements
 
 Extra Feature
 - Live Dashboard using PowerBI
+
+by 
+Cheong Hui Ting
