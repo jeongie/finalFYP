@@ -21,50 +21,50 @@
                         <th>Gender</th>
                         <th>Age</th>
                         @if(in_array('hb1ac', $selectedData))
-                            <th>HbA1c 
+                            <th>HbA1c(%)</th>
                         @endif
                         @if(in_array('hypertension', $selectedData))
-                            <th>Hypertension
+                            <th>Hypertension</th>
                         @endif
                         @if(in_array('cholestrol', $selectedData))
-                            <th>Cholestrol
+                            <th>Cholestrol</th>
                         @endif
                         @if(in_array('smoking', $selectedData))
-                            <th>Smoking
+                            <th>Smoking</th>
                         @endif
                         @if(in_array('alcohol', $selectedData))
-                            <th>Alcohol
+                            <th>Alcohol</th>
                         @endif
                         @if(in_array('diet', $selectedData))
-                            <th>Diet
+                            <th>Diet</th>
                         @endif
                         @if(in_array('bmi', $selectedData))
                             <th>BMI</th>
                         @endif
                         @if(in_array('ef', $selectedData))
-                            <th>Ejection Fraction</th>
+                            <th>Ejection Fraction(%)</th>
                         @endif
 
                         @if(in_array('Rest HR', $selectedData))
-                            <th>Resting Heart Rate
+                            <th>Resting Heart Rate</th>
                         @endif
                         @if(in_array('Peak HR', $selectedData))
-                            <th>Peak Heart Rate
+                            <th>Peak Heart Rate</th>
                         @endif
                         @if(in_array('HR reserve', $selectedData))
-                            <th>Heart Rate Reserve
+                            <th>Heart Rate Reserve</th>
                         @endif
                         @if(in_array('HR recovery', $selectedData))
-                            <th>Heart Rate Recovery
+                            <th>Heart Rate Recovery</th>
                         @endif
                         @if(in_array('Rest BP', $selectedData))
-                            <th>Resting BP
+                            <th>Resting BP</th>
                         @endif
                         @if(in_array('Peak BP', $selectedData))
-                            <th>Peak BP 
+                            <th>Peak BP </th>
                         @endif
                         @if(in_array('METS', $selectedData))
-                            <th>Metabolic Equivalents
+                            <th>Metabolic Equivalents</th>
                         @endif
 
                     </tr>

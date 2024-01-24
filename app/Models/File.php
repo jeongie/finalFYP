@@ -19,6 +19,7 @@ class File extends Model
         'size',
         'path',
         'is_new',
+        'tb_extract',
 
     ];
 

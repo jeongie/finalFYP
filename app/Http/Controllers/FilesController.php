@@ -19,10 +19,20 @@ class FilesController extends Controller
     public function index()
     {
         $userId = auth()->id();
-        $files = File::where('user_id', $userId)->where('is_new', true)->get();
-        //$files = File::all();
+        
+        $files = File::where('user_id', $userId)
+        ->where('is_new', true)
+        ->where('tb_extract', true)
+        ->get();
 
-        return view('files.index', ['files' => $files]);
+        $saveddbFiles = File::where('user_id', $userId)
+        ->where('is_new', true)
+        ->where('tb_extract', false)
+        ->get();
+
+        return view('files.index', [
+            'files' => $files,
+            'saveddbfile' => $saveddbFiles, ]);
 
     }
 
@@ -39,7 +49,7 @@ class FilesController extends Controller
     {
         
         $userId = auth()->id();
-        $files = File::where('user_id', $userId)->where('is_new', true)->get();
+        $files = File::where('user_id', $userId)->where('is_new', true)->where('tb_extract', true)->get();
         $filePath = [];
         // dd($files);
 
@@ -120,6 +130,7 @@ class FilesController extends Controller
                 'size' => $size,
                 'path' => $filePath,
                 'is_new' => true,
+                'tb_extract'=>true,
             ]);
         }
     }

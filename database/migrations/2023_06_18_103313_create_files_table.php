@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('size');
             $table->string('path');
             $table->boolean('is_new')->default(true);
+            $table->boolean('tb_extract')->default(true);
             $table->timestamps();
 
             $table->foreign('user_id')

@@ -14,20 +14,10 @@ class APIController extends Controller
     public function getapi(Request $request)
 {
     try {
-        // \Log::info("testing in getapi");
-        // // Send a POST request to the Python server
-        // $response = Http::post('http://127.0.0.1:5000/', [
-        //     'data' => $request->input('data'),
-        // ]);
 
-        // // Get the response from the Python server
-        // $responseData = $response->json();
-        // echo '<pre>';
-        // print_r($responseData);
-        // echo '</pre>';
         $userId = auth()->id();
         // $files = File::where('user_id', $userId)->get();
-        $files = File::where('user_id', $userId)->where('is_new', true)->get();
+        $files = File::where('user_id', $userId)->where('is_new', true)->where('tb_extract', true)->get();
         $filePath = [];
         // dd($files);
 
@@ -101,6 +91,7 @@ public function storeDataInDatabase(Request $request)
             ]);
         }
         // File::where('user_id', $userId)->update(['is_new' => false]);
+        File::where('user_id', $userId)->update(['tb_extract' => false]);
 
         return redirect()->route('export')->withSuccess(__('Extracted data is saved.'));
     } catch (\Exception $e) {
