@@ -9,9 +9,6 @@
                         <a href="{{ route('dashboard') }}" class=" custom-btn">
                             <i class="fa fa-home class" style="font-size: 25px;"></i>
                         </a>
-                        {{-- <a href="{{ route('dashboard') }}" class="custom-btn">
-                        <i class="fa fa-home"></i>  --}}
-                        {{-- block h-9 w-auto fill-current text-gray-800  --}}
     
                     </div>
     

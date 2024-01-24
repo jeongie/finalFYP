@@ -127,15 +127,10 @@
         </div>
 
         <div class="card-body">
-            {{-- <form id="dataForm" action="{{ route('store.database') }}" method="post"> --}}
-            {{-- <a href="{{ route('export.excel') }}" class="btn btn-primary float-right mb-3">Export Excel</a>  --}}
-            {{-- <a href="{{ route('store.database', ['sessionId' => session()->getId()]) }}" class="btn btn-primary btn-right mb-3">Data extracted is correct!</a> --}}
             <form id="dataForm2" action="{{ route('store.database') }}" method="post">
             @csrf
             <input type="hidden" name="selectedData" value="{{ json_encode($selectedData) }}">
 
-            {{--  @foreach ($selectedData as $storeData)
-                <input type="hidden" name="selected_data[]" value="{{htmlentities(json_encode($apidata))}}">  --}}
             <button type="submit" class="btn btn-primary float-right mb-3">Store in Database</button>
             </form>
         </div>

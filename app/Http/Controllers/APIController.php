@@ -16,10 +16,8 @@ class APIController extends Controller
     try {
 
         $userId = auth()->id();
-        // $files = File::where('user_id', $userId)->get();
         $files = File::where('user_id', $userId)->where('is_new', true)->where('tb_extract', true)->get();
         $filePath = [];
-        // dd($files);
 
         //Loop through each file to get its path
         foreach ($files as $file) {
@@ -28,10 +26,8 @@ class APIController extends Controller
         }
 
         $selectedData = $request->input('data');
-        // dd($selectedData);
 
             // Send a POST request to the Python server
-            // https://fyp-flask-3gborstie-jeongies-projects.vercel.app/
             $response = Http::post('http://127.0.0.1:5000/', [
                 'data' => $selectedData,
                 'filePath'=> $filePath,
@@ -39,8 +35,6 @@ class APIController extends Controller
 
             // Get the response from the Python server
             $responseData = $response->json();
-            // dd($responseData);
-           
 
             session(['apidata' => $responseData]);
         // Handle the response as needed
@@ -55,13 +49,8 @@ public function storeDataInDatabase(Request $request)
 {
     try {
         $userId = auth()->id();
-        // \Log::info("selectedData is below");
-        // \Log::info($request->input('selectedData'));
-        // $sessionId = $request->query('sessionId');
         $apidata = session()->get('apidata');
-        // dd($apidata);
         $selectedData = json_decode($request->input('selectedData'), true);
-        // dd($request);
 
 
         foreach ($apidata as $item) {
@@ -90,7 +79,6 @@ public function storeDataInDatabase(Request $request)
                 'Peak BP' => $item['Peak BP'] ?? null,
             ]);
         }
-        // File::where('user_id', $userId)->update(['is_new' => false]);
         File::where('user_id', $userId)->update(['tb_extract' => false]);
 
         return redirect()->route('export')->withSuccess(__('Extracted data is saved.'));
@@ -103,14 +91,6 @@ public function storeDataInDatabase(Request $request)
     }
 }
 
-
-
-
-    // public function export_contacts()
-    // {
-    //     return Excel::download(new ContactsExport, 'Contacts.xlsx');
-    // }
-    // //https://github.com/tauseedzaman/contact-management-system/blob/main/app/Exports/ContactsExport.php
 
 
 }

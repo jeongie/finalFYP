@@ -13,12 +13,9 @@
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
               <div class="p-6 text-gray-900">
-                  {{-- {{ __("You're logged in!") }} --}}
 
                   <iframe title="sqlservertest1" width="900" height="573.5" src="https://app.powerbi.com/view?r=eyJrIjoiYjFlMDA5N2UtN2NkMy00MmZmLTgyNmYtYzM1NDYyOGQwOWFkIiwidCI6ImE2M2JiMWE5LTQ4YzItNDQ4Yi04NjkzLTMzMTdiMDBjYTdmYiIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
-                  {{-- <p><br>The dashboard updates every hour.</p> --}}
                   <P STYLE="font: 10pt; margin: 12pt 0 0;"><I>The dashboard updates every hour.</I></P>
-                  {{-- <iframe title="Report Section" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiMTQwMmJhZTYtZGU3Mi00ZjVkLWJlZDUtOWNjZDUyNTkwZThmIiwidCI6ImE2M2JiMWE5LTQ4YzItNDQ4Yi04NjkzLTMzMTdiMDBjYTdmYiIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe> --}}
                     <br><br>
                     <table>
                       <h1 style="font-weight:bold; font-size:150%">Uploaded File</h1>

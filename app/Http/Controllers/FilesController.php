@@ -51,20 +51,17 @@ class FilesController extends Controller
         $userId = auth()->id();
         $files = File::where('user_id', $userId)->where('is_new', true)->where('tb_extract', true)->get();
         $filePath = [];
-        // dd($files);
 
         //Loop through each file to get its path
         foreach ($files as $file) {
             // Generate the URL for the file using Laravel's Storage facade
             $filePath[$file->id] = Storage::url($file->path);
         }
-        // dd($filePath);
 
         // Update the path property of each file with the generated URL
         foreach ($files as $file) {
             $file->path = $filePath[$file->id];
         }
-        // File::where('user_id', $userId)->update(['is_new' => false]);
         return view('files.filelist', ['files' => $files]);
 
     }
@@ -171,17 +168,14 @@ class FilesController extends Controller
         \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
         // Load the Word document
         $phpWord = IOFactory::load($uploadedFile->getRealPath());
-        // $phpWord = IOFactory::load($uploadedFile->$filePath);
 
         // Set up PDF rendering
         $pdfWriter = IOFactory::createWriter($phpWord, 'PDF');
 
         // Save the PDF to storage
         $pdfFileName = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME) . '.pdf';
-        // $pdfFilePath = Storage::disk('public')->path('files/' . $pdfFileName);
         $pdfFilePath = 'files/' . $pdfFileName;
 
-        // $pdfWriter->save($pdfFilePath);
         $pdfWriter->save(Storage::disk('public')->path($pdfFilePath));
 
         return $pdfFilePath;

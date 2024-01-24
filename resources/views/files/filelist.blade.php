@@ -51,9 +51,8 @@
       }
         /* Style for the central div */
         .center-div {
-            /* text-align: center; Center the content */
             padding: 20px; /* Add padding for spacing */
-            /* border: 1px solid #ccc; Optional: Add a border for visual separation */
+
         }
 
         /* Style for the container of left and right divs */
@@ -64,7 +63,6 @@
         /* Style for each individual div */
         .left-div {
             flex: 2; /* Take up more space */
-            /* padding: 5px; Add padding for spacing */
             border: 3px solid #ffffff; /* Optional: Add a border for visual separation */
         }
 
